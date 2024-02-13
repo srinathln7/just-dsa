@@ -1,14 +1,11 @@
-# Remove Duplicates from Sorted Array
+# Remove Element
 
 ## Problem
 
-[Remove duplicates from sorted array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
-
-## Intuition:
-This solution utilizes two pointers to remove duplicates in a sorted array in-place. The variable `j` represents the index where there is no duplicate element.
+This function removes all occurrences of a specified value `val` from an array `nums` in-place and returns the length of the resulting array.
 
 ## Approach:
-We initialize `j` to 1 since the first element is always unique. Then, we iterate through the array using pointer `i`. If the current element `nums[i]` is not equal to the previous element `nums[i-1]`, it means it's a unique element, so we move it to the position represented by `j`, and then increment `j`.
+The function initializes a variable `count` to keep track of the index where the next non-`val` element should be placed. It iterates through the array, and whenever it encounters an element that is not equal to `val`, it moves it to the position indicated by `count` and then increments `count`. By doing this, it effectively removes all occurrences of `val` from the array.
 
 ## Time Complexity:
 O(n)
