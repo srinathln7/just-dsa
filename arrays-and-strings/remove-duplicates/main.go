@@ -1,7 +1,7 @@
 package main
 
 func removeDuplicates(nums []int) int {
-	// `j` represents the index where there is no deplicate element
+	// `j` represents the index where there is no duplicate element
 	var j int = 1
 	for i := 1; i < len(nums); i++ {
 		if nums[i] != nums[i-1] {
