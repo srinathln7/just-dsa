@@ -5,7 +5,7 @@ func sortArray(nums []int) []int {
 		return nums
 	}
 
-	// Recursively sort the left and right tree abd then merge back finally
+	// Recursively sort the left and right tree and then merge back finally
 	mid := len(nums) / 2
 	left := sortArray(nums[:mid])
 	right := sortArray(nums[mid:])

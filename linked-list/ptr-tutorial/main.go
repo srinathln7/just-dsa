@@ -8,7 +8,8 @@ type Listnode struct {
 }
 
 func main() {
-	// 	a: &{val:0 next:<nil>} and b:&{val:0 next:<nil>}
+
+	// a: &{val:0 next:<nil>} and b:&{val:0 next:<nil>}
 	// a: &{val:0 next:0xc0000140b0} and b:&{val:0 next:0xc0000140b0}
 	// a: &{val:0 next:0xc0000140b0} and b:&{val:1 next:0xc0000140c0}
 	// a: &{val:0 next:0xc0000140b0} and b:&{val:1 next:<nil>}
