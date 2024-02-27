@@ -27,13 +27,13 @@ func (i *Iterator) hasNext() (int, bool) {
 
 func interLeave(lists [][]int) [][]int {
 	// MISTAKE: `results` length need not always be same as the length of the lists.
-	// Consider the case where on the elements in the list is []
+	// Consider the case where all the elements in the list is []
 	//results := make([][]int, len(lists))
 
 	var results [][]int
 	iterators := make([]*Iterator, len(lists)) // Key idea is to make this a POINTER to the iterator struct
 
-	// Key Idea: is to loop one row at a time and within each row we loop one char at a time
+	// Key Idea: is to loop one row at a time and within each row we loop one element at a time
 	// To do this we create a wrapper around iterator for each row in the lists
 	for i, list := range lists {
 		iterators[i] = newIterator(list)

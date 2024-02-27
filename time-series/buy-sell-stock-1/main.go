@@ -6,7 +6,7 @@ func maxProfit(prices []int) int {
 		return 0
 	}
 
-	var minPrice int = prices[0]
+	var minPrice int = prices[0] // Buy Price
 	var maxProfit int
 
 	// Key Idea: Is that the loop moves only forward

@@ -42,4 +42,35 @@ func main() {
 	q = &j
 	fmt.Println("p=", p)
 	fmt.Println("q=", q)
+
+	// FOLLOWING CAUSES RUNTIME panic: runtime error: index out of range [0] with length 0
+
+	// var result []int
+	// result[0] = 1
+
+	// var results [][]int
+	// results[0] = append(results[0], 1)
+
+	// CORRECT WAY
+	// OUTPUT results [[0]] result[0]
+
+	var result []int
+	result = append(result, 0)
+
+	var results [][]int
+	results = append(results, result)
+
+	fmt.Println("results", results)
+	fmt.Println("result", result)
+
+	// ALTERNATIVE
+	// OUTPUT: resultsAlt [[0]] resultAlt [0]
+	resultsAlt := make([][]int, 1)
+	resultAlt := make([]int, 1)
+
+	resultAlt[0] = 0
+	resultsAlt[0] = resultAlt
+
+	fmt.Println("resultsAlt", resultsAlt)
+	fmt.Println("resultAlt", resultAlt)
 }
