@@ -18,7 +18,7 @@ func isvalidBST(root, min, max *TreeNode) bool {
 		return true
 	}
 
-	if (min != nil && root.Val <= min.Val) || (max != nil && root.Val >= max.Val) {
+	if (max != nil && root.Val >= max.Val) || (min != nil && root.Val <= min.Val) {
 		return false
 	}
 

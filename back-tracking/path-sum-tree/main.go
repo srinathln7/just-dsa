@@ -8,13 +8,11 @@ type TreeNode struct {
 }
 
 func hasPathSum(root *TreeNode, targetSum int) bool {
+
 	// We can solve this problem with BACK TRACKING algorithm which in essence is a brute-force algorithm
 	if root == nil {
 		return false
 	}
-
-	var stack []int
-	stack = append(stack, root.Val)
 
 	// Traverse from the root all the way to the leaf
 
@@ -33,7 +31,5 @@ func hasPathSum(root *TreeNode, targetSum int) bool {
 		return true
 	}
 
-	// If not true yet, invalidate the current path, pop the last element in the stack to back track
-	stack = stack[0 : len(stack)-1]
 	return false
 }

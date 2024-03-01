@@ -11,4 +11,4 @@ We traverse the binary tree recursively using a depth-first search (DFS) approac
 The time complexity of this approach is O(n), where n is the number of nodes in the binary tree. This is because we visit each node once during the traversal.
 
 # Space Complexity
-The space complexity is also O(n), where n is the height of the binary tree. This is because the maximum space used by the call stack during recursion is proportional to the height of the tree.
+The space complexity is also O(logn), which is the height of the binary tree. This is because the maximum space used by the call stack during recursion is proportional to the height of the tree.

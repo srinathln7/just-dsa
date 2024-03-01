@@ -6,22 +6,21 @@ func subsets(nums []int) [][]int {
 
 	// We use BACKTRACKING approach to solve this problem recursively.
 	//  NOTE: we run a recursive function inside a iterative loop
-
 	var result [][]int
-	generateSubsets(nums, []int{}, &result, 0)
+	dfs(nums, []int{}, &result, 0)
 	return result
 }
 
-func generateSubsets(nums, subset []int, result *[][]int, startIdx int) {
+func dfs(nums, subset []int, result *[][]int, startIdx int) {
 	*result = append(*result, append([]int{}, subset...))
 	fmt.Printf("result at i= %d => %d\n", startIdx, *result)
 	for i := startIdx; i < len(nums); i++ {
 		subset = append(subset, nums[i])
 		fmt.Printf("subset at i=%d => %d\n", i, subset)
 		fmt.Printf("Recurse with start index=%d\n", i+1)
-		generateSubsets(nums, subset, result, i+1)
+		dfs(nums, subset, result, i+1)
 
-		// Back track by removing the last element of the subset
+		// Backtrack by removing the last element of the subset
 		subset = subset[0 : len(subset)-1]
 		fmt.Printf("Backtracked subset at i=%d => %d \n", i, subset)
 	}
