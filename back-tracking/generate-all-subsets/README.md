@@ -1,24 +1,26 @@
 # Backtracking
 
-Generate all possible subsets of a given array of unique elements.
+Given an array of distinct integers `nums`, return all possible subsets (the power set). The solution should not contain any duplicate subsets.
 
-## Intuition:
-The problem of generating all possible subsets can be effectively solved using a backtracking approach. By exploring all possible combinations of elements in the array, we can generate all subsets.
+## Approach
 
-## Approach:
-1. Define a recursive function `generateSubsets(nums, subset, result, startIdx)`, which takes the current `nums` array, the current `subset`, the `result` slice of all subsets, and the `startIdx` indicating the starting index to consider in `nums`.
-2. At each step of the recursion:
-   - Add the current `subset` to the `result`.
-   - Iterate over the elements of `nums` starting from `startIdx`.
-   - For each element at index `i`, add `nums[i]` to the `subset` and recursively call `generateSubsets` with `startIdx = i + 1`.
-   - After the recursive call, backtrack by removing the last element from the `subset`.
-3. Finally, call `generateSubsets` with the initial parameters: `nums`, an empty `subset`, an empty `result`, and `startIdx = 0`.
+The problem can be solved using backtracking, a technique that systematically searches through all possible solutions to find the optimal one. In this approach, we recursively build subsets by including or excluding each element in the array.
 
-## Time Complexity:
-The time complexity of this approach is O(2^n), where n is the number of elements in the input array `nums`. This is because there are 2^n possible subsets, and each subset requires O(n) time to generate.
+1. Implement a backtracking function `dfs` that recursively generates subsets.
+2. Initialize an empty `result` slice to store the subsets.
+3. Iterate through the elements of the input array `nums`.
+4. In each iteration, include the current element in the subset and recursively call `dfs` with the updated subset and the next index.
+5. After the recursive call, backtrack by removing the last element from the subset to explore other possibilities.
+6. Append the subset to the `result` slice after each recursive call.
+7. Return the `result` slice containing all possible subsets.
 
-## Space Complexity:
-The space complexity is also O(2^n) in the worst case, as there can be a total of 2^n subsets, each with an average size of O(n). Additionally, the recursive call stack can have a depth of O(n) in the worst case.
+## Time Complexity
+
+The time complexity of the backtracking algorithm is O(2^N), where N is the number of elements in the input array `nums`. This is because each element can either be included or excluded in a subset, resulting in a total of 2^N possible subsets.
+
+## Space Complexity
+
+The space complexity is O(N * 2^N), where N is the number of elements in the input array `nums`. This space is required to store all possible subsets generated during the backtracking process.
 
 
 ## Remark
