@@ -31,7 +31,7 @@ func detectCycle(head *ListNode) *ListNode {
 		}
 	}
 
-	// We can mathematically demonstrate that the meeting point, where the tortoise and hare intersect,
+	// We can mathematically prove that the meeting point, where the tortoise (slow pointer) and hare (fast pointer) intersect,
 	// is equidistant from both the starting point of the cycle and the head of the linked list. So to detect
 	// the point where the cycle begins we move slow to `head` and now traverse slow and fast pointers at equal pace
 
