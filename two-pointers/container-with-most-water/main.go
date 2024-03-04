@@ -13,7 +13,7 @@ func maxArea(height []int) int {
 		area = length * width
 		maxArea = max(maxArea, area)
 
-		// Move the pointers according to the height of the container
+		// Move the pointer pointing to the lower height of the two containers b/w left and right to increase the chance of finding max area
 		if height[l] < height[r] {
 			l++
 		} else {

@@ -1,21 +1,19 @@
 package main
 
-func maxSumSubArray(nums []int) int {
+func maxSubArraySum(nums []int) int {
+	maxG := nums[0] // Global maximum
 	maxSoFar := nums[0]
-	sumEndingHere := nums[0]
-
 	for i := 1; i < len(nums); i++ {
-		sumEndingHere = max(nums[i], nums[i]+sumEndingHere)
-		maxSoFar = max(maxSoFar, sumEndingHere)
+		maxSoFar = max(nums[i], nums[i]+maxSoFar)
+		maxG = max(maxG, maxSoFar)
 	}
-
-	return maxSoFar
+	return maxG
 }
 
 func maxSubArray(nums []int) (int, []int) {
 
+	maxG := nums[0]
 	maxSoFar := nums[0]
-	sumEndingHere := nums[0]
 	startIdx, endIdx := 0, 0
 	startTracker := 0
 
@@ -23,21 +21,20 @@ func maxSubArray(nums []int) (int, []int) {
 
 		// If the current num is greater than the sum of all previous nums + current num
 		// then we start a new sub-array
-		if num > num+sumEndingHere {
-			sumEndingHere = num
+		if num > num+maxSoFar {
+			maxSoFar = num
 			startTracker = i
 		} else {
 			// extend the sub array
-			sumEndingHere = sumEndingHere + num
+			maxSoFar = maxSoFar + num
 		}
 
-		if sumEndingHere > maxSoFar {
-			maxSoFar = sumEndingHere
+		if maxSoFar > maxG {
+			maxG = maxSoFar
 			startIdx = startTracker
 			endIdx = i
 		}
 	}
 
-	return maxSoFar, nums[startIdx : endIdx+1]
-
+	return maxG, nums[startIdx : endIdx+1]
 }
