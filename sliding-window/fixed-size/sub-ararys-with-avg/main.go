@@ -8,21 +8,21 @@ func numOfSubarrays(arr []int, k int, threshold int) int {
 		windowSum += arr[i]
 	}
 
-	for i := k; i < len(arr); i++ {
+	// Calculate avg for the first window
+	avg = windowSum / k
+	if avg >= threshold {
+		count++
+	}
 
-		// Note the loop exits before calculating avg for the last window
+	// Note the loop exits before calculating avg for the last window
+	for i := k; i < len(arr); i++ {
+		// Slide the window
+		windowSum = windowSum + arr[i] - arr[i-k]
+
 		avg = windowSum / k
 		if avg >= threshold {
 			count++
 		}
-		// Slide the window
-		windowSum = windowSum + arr[i] - arr[i-k]
-	}
-
-	// Check the last window
-	avg = windowSum / k
-	if avg >= threshold {
-		count++
 	}
 
 	return count
