@@ -2,9 +2,11 @@ package main
 
 func characterReplacement(s string, k int) int {
 
-	// KEY IDEA: For a given window, we need to keep track of the character with the most frequency
+	// KEY IDEA: We init two pointers `l` and `r` and keep moving `r` pointer forward.
+	// As move along, we need to keep track of the character's freq (char with the most frequency can be inferred from this)
 	// Then the number of operations required to make other characters similar in that window can be calculated by
-	// #operations_reqd = #window_size - #max_repeated_character And this operation should never exceed `k`
+	// #operations_reqd = #window_size - #max_repeated_character. If this operation exceeds `k`, we start shrinking the window
+	// from the left since oly atmost `k` operations are allowed.
 
 	var maxCount, maxLength int
 	countWindow := make(map[byte]int)
@@ -17,7 +19,7 @@ func characterReplacement(s string, k int) int {
 		maxCount = max(maxCount, countWindow[s[r]])
 
 		// Number of operations required to make all the characters in the window the same and
-		// if that exceeds `k` shrink the given window
+		// if that exceeds `k` start shrinking the window from the left
 		num_of_ops := (r - l + 1) - maxCount
 		if num_of_ops > k {
 			countWindow[s[l]]--

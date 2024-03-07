@@ -1,6 +1,6 @@
-# Range query mutable
+# Range Sum Query Mutable
 
-You are given an integer array `nums` and need to handle multiple queries of the following types:
+For  range sum query **immutable** we can use the **prefix sum** technique. You are given an integer array `nums` and need to handle multiple queries of the following types:
 
 1. Update the value of an element in `nums`.
 2. Calculate the sum of the elements of `nums` between indices `left` and `right` inclusive where `left <= right`.

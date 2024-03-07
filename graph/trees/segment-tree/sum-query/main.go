@@ -10,35 +10,6 @@ type NumArray struct {
 	root *SegmentTree
 }
 
-// BIG MISTAKE:
-// func Constructor(nums []int) NumArray {
-// 	l, r := 0, len(nums)-1
-// 	// Base case - Leaf node
-// 	if l == r {
-// 		return NumArray{
-// 			root: &SegmentTree{
-// 				val:      nums[l],
-// 				leftIdx:  l,
-// 				rightIdx: r,
-// 			},
-// 		}
-// 	}
-
-// 	// Construct the left and right segment trees recursively
-// 	m := l + (r-l)/2
-// 	leftSegTree := Constructor(nums[:m+1])
-// 	rightSegTree := Constructor(nums[m+1:])
-// 	return NumArray{
-// 		root: &SegmentTree{
-// 			val:          leftSegTree.root.val + rightSegTree.root.val,
-// 			leftIdx:      l,
-// 			rightIdx:     r,
-// 			leftSegTree:  leftSegTree.root,
-// 			rightSegTree: rightSegTree.root,
-// 		},
-// 	}
-// }
-
 func Constructor(nums []int) NumArray {
 	l, r := 0, len(nums)-1
 	root := buildSegmentTree(nums, l, r)
