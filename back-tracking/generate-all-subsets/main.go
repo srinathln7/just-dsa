@@ -1,31 +1,27 @@
 package main
 
-import "fmt"
-
 func subsets(nums []int) [][]int {
+	var res [][]int
+	var subset []int
 
-	// We use BACKTRACKING approach to solve this problem recursively.
-	//  NOTE: we run a recursive function inside a iterative loop
-	var result [][]int
-	dfs(nums, []int{}, &result, 0)
-	return result
-}
+	var dfs func(int)
+	dfs = func(i int) {
+		if i == len(nums) {
+			// MISTAKE : Refer pre-req.go
+			// res = append(res1, subset)
+			res = append(res, append([]int{}, subset...))
+			return
+		}
 
-func dfs(nums, subset []int, result *[][]int, startIdx int) {
-	*result = append(*result, append([]int{}, subset...))
-	fmt.Printf("result at i= %d => %d\n", startIdx, *result)
-	for i := startIdx; i < len(nums); i++ {
+		// Decision to include nums[i]
 		subset = append(subset, nums[i])
-		fmt.Printf("subset at i=%d => %d\n", i, subset)
-		fmt.Printf("Recurse with start index=%d\n", i+1)
-		dfs(nums, subset, result, i+1)
+		dfs(i + 1)
 
-		// Backtrack by removing the last element of the subset
-		subset = subset[0 : len(subset)-1]
-		fmt.Printf("Backtracked subset at i=%d => %d \n", i, subset)
+		// Decision NOT to include nums[i] - pop the element out of the stack and run dfs
+		subset = subset[:len(subset)-1]
+		dfs(i + 1)
 	}
-}
 
-func main() {
-	subsets([]int{1, 2, 3})
+	dfs(0)
+	return res
 }

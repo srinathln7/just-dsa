@@ -1,26 +1,23 @@
-# Backtracking
+# Superset
+Given a set of distinct integers, nums, return all possible subsets (the power set).
 
-Given an array of distinct integers `nums`, return all possible subsets (the power set). The solution should not contain any duplicate subsets.
+## Intuition
+To generate all possible subsets, we can use a depth-first search (DFS) approach. At each step, we have two choices: include the current element in the subset or exclude it. We recursively explore both options until we reach the end of the array.
 
 ## Approach
-
-The problem can be solved using backtracking, a technique that systematically searches through all possible solutions to find the optimal one. In this approach, we recursively build subsets by including or excluding each element in the array.
-
-1. Implement a backtracking function `dfs` that recursively generates subsets.
-2. Initialize an empty `result` slice to store the subsets.
-3. Iterate through the elements of the input array `nums`.
-4. In each iteration, include the current element in the subset and recursively call `dfs` with the updated subset and the next index.
-5. After the recursive call, backtrack by removing the last element from the subset to explore other possibilities.
-6. Append the subset to the `result` slice after each recursive call.
-7. Return the `result` slice containing all possible subsets.
+1. Define a function `dfs` to perform the depth-first search. The function takes an integer `i` representing the current index in the array.
+2. If `i` equals the length of the array `nums`, it means we have processed all elements, so we append a copy of the current subset to the result.
+3. Otherwise, we have two choices:
+   - Include the current element `nums[i]` in the subset. Append `nums[i]` to `subset`, then recursively call `dfs(i + 1)`.
+   - Exclude the current element `nums[i]` from the subset. Skip appending `nums[i]` to `subset` and recursively call `dfs(i + 1)`.
+4. Initialize an empty subset and start the DFS traversal from index 0.
+5. Return the resulting array of subsets.
 
 ## Time Complexity
-
-The time complexity of the backtracking algorithm is O(2^N), where N is the number of elements in the input array `nums`. This is because each element can either be included or excluded in a subset, resulting in a total of 2^N possible subsets.
+The time complexity of this approach is O(2^N), where N is the number of elements in the input array. This is because each element has two choices: either to include it or exclude it from a subset, and there are 2^N possible subsets.
 
 ## Space Complexity
-
-The space complexity is O(N * 2^N), where N is the number of elements in the input array `nums`. This space is required to store all possible subsets generated during the backtracking process.
+The space complexity is O(N * 2^N), where N is the number of elements in the input array. This is because there can be a maximum of 2^N subsets, each containing up to N elements.
 
 
 ## Remark
@@ -37,11 +34,23 @@ Here's why this line is important:
 
 In summary, the line `subset = subset[:len(subset)-1]` plays a crucial role in backtracking algorithms by allowing us to backtrack and explore different combinations of elements while constructing subsets.
 
+### MISTAKE
 
-## Output
+Refer `pre-req.go` file to understand the mistake made
+
+Suppose we have a slice `subset := []int{1, 2}`.
+
+1. `res = append(res, append([]int{}, subset...))`: Here, we are creating a new slice with the elements of `subset` (1 and 2) using the variadic `...` syntax, and then appending that new slice to `res`. The inner `append([]int{}, subset...)` creates a new slice with the same elements as `subset`, ensuring that modifications to `subset` don't affect the appended slice in `res`. This way, `res` contains copies of the subsets, not references to the original `subset`.
+
+2. `res1 = append(res1, subset)`: Here, we are directly appending the `subset` slice to `res1`. Since slices in Go are reference types, this means `res1` will hold a reference to the same underlying array as `subset`. Any modifications made to `subset` will reflect in `res1` because they both point to the same underlying array. This can lead to unexpected behavior if you modify `subset` after it has been appended to `res1`.
+
+
+
+
+### Output
 
 ```
-go run main.go
+go run alt.go
 result at i= 0 => [[]]
 subset at i=0 => [1]
 Recurse with start index=1
