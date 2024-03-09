@@ -90,8 +90,9 @@ func findRedundantConnection(edges [][]int) []int {
 	for _, edge := range edges {
 		n1, n2 := edge[0], edge[1]
 
-		// If union operation fails, it indicates the presence of a cycle i.e. the two nodes are
-		// already part of the same sub-graph i.e. a redundant connection. ALTERNATIVELY, if we are
+		// Since union find oeprates only on dis-joint sets => if union operation fails,
+		// it indicates the redundant connection or presence of a cycle i.e. the two nodes are
+		// already part of the same sub-graph. ALTERNATIVELY, if we are
 		// asked to find the number of connected components, we can get it by calculating
 		// `#nodes - #unionfind`
 		if !uf.union(n1, n2) {
