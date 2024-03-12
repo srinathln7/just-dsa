@@ -2,7 +2,8 @@
 Given a list of edges representing a directed acyclic graph (DAG), the task is to find a valid topological ordering of the graph.
 
 ## Intuition
-Topological sorting is a way of arranging the nodes of a directed graph in a linear ordering such that for every directed edge from node u to node v, u comes before v in the ordering. This ordering is not unique, and there may be multiple valid topological orderings for a given DAG.
+Topological sorting is a way of arranging the nodes of a directed acyclic graph in a linear ordering such that for every directed edge from node u to node v, u comes before v in the ordering. This ordering is not unique, and there may be multiple valid topological orderings for a given DAG. It is important to note that, the graph
+components may not all be connected i.e. the graph need be a valid tree.
 
 ## Approach
 1. **Forming Adjacency Graph**: First, the code forms the adjacency graph from the given list of edges. It uses a map where the keys represent the nodes, and the values represent the list of adjacent nodes.
