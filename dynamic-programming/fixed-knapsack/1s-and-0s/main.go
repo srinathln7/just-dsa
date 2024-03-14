@@ -4,8 +4,8 @@ import "strings"
 
 func findMaxForm(strs []string, m int, n int) int {
 
-	// Key Idea: Our subset should contain atmost `m` 0s and `n` 1s. To find teh largest subset number, we form a decision tree, where we go down two paths
-	// of including the current element or not including it. We use memoziation to make sure we dont do any repeated work by stroing (m, n, idx). If we include
+	// Key Idea: Our subset should contain atmost `m` 0s and `n` 1s. To find the largest subset number, we form a decision tree, where we go down two paths
+	// of including the current element or not including it. We use memoziation to make sure we dont do any repeated work by storing (m, n, idx). If we include
 	// the current element in the subset, we then increment the count by 1. Finally, since we have to find the largest subset of the two, we find the max between
 	// two decisions and return this value.
 
