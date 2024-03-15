@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 func lastStoneWeightII(stones []int) int {
 
@@ -33,7 +36,9 @@ func lastStoneWeightII(stones []int) int {
 		return dp[[2]int{idx, total}]
 	}
 
-	return dfs(0, 0)
+	result := dfs(0, 0)
+	fmt.Println("DP Map", dp)
+	return result
 }
 
 func abs(x int) int {
@@ -42,4 +47,10 @@ func abs(x int) int {
 	}
 
 	return x
+}
+
+func main() {
+
+	stones := []int{31, 26, 33, 21, 40}
+	fmt.Println(lastStoneWeightII(stones))
 }

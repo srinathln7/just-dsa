@@ -10,8 +10,13 @@ func calcMaxProfit(weight, profit []int, capacity int) int {
 
 	n, m := len(profit), capacity
 	dp := make([]int, m+1)
+
+	// Range over items from the very first item
+	// NOTICE how it is different in fixed knapsack problem
 	for i := 0; i < n; i++ {
 		currentRow := make([]int, m+1)
+
+		// Range over capacity
 		for c := 0; c <= m; c++ {
 
 			// Decision not to include the item at all
@@ -20,6 +25,7 @@ func calcMaxProfit(weight, profit []int, capacity int) int {
 			var inclProfit int
 			if weight[i] <= c {
 				// Decision to include the item unboundedly till max. capacity
+				// NOTICE how this line varies in fixed knapsack problem
 				inclProfit = profit[i] + currentRow[c-weight[i]]
 			}
 
