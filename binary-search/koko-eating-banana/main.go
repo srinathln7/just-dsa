@@ -3,6 +3,11 @@ package main
 import "math"
 
 func minEatingSpeed(piles []int, h int) int {
+
+	// Key Idea: A classic dilemma based question: You want to eat all but at the slowest rate possible
+	// Have one portion representing slow eating but cannot finish all and other portion representing can
+	// finish all but eating fast. Move these pointers in opposite direction until they meet.
+
 	l, r := 1, getMax(piles) // left and right pointers
 
 	for l <= r {
