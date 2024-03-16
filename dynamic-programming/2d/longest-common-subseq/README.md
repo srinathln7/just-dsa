@@ -16,3 +16,4 @@ The time complexity of this solution is O(m * n), where `m` and `n` are the leng
 
 ## Space Complexity:
 The space complexity is also O(m * n) due to the usage of a 2D array `dp` with dimensions `(m+1) x (n+1)`, where `m` and `n` are the lengths of the input strings `text1` and `text2`. This array stores the lengths of common subsequences for different substrings of `text1` and `text2`, leading to quadratic space complexity.
+The space complexity of this approach can be further optimzed to O(n), where n is the length of text2. This is achieved by using only two arrays, dp1 and currentRow, instead of the entire 2D dynamic programming array.
