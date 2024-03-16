@@ -9,7 +9,7 @@ func rob(nums []int) int {
 	// For example: -> Only one house => max = nums[0]
 	// Two houses => max = max(nums[0], nums[1])
 	// Three houses => max = max(nums[0] + nums[2] , nums[1])
-	// Four houses => max = max(nums[0]+ nums[2], nums[1]+nums[3])
+	// Four houses => max = max(nums[0]+ nums[2], nums[0]+nums[3], nums[1]+nums[3])
 	// ...
 
 	// Edge cases
@@ -27,9 +27,8 @@ func rob(nums []int) int {
 	n := len(nums)
 	for i := 2; i < n; i++ {
 		tmp := currMax
-		currMax = max(nums[i]+prevMax, currMax)
+		currMax = max(currMax, nums[i]+prevMax)
 		prevMax = tmp
 	}
-
 	return currMax
 }
