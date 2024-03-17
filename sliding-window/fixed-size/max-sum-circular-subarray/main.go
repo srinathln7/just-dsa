@@ -1,9 +1,8 @@
 package main
 
 func maxSubarraySumCircular(nums []int) int {
-
-	// Key Idea: Since the array is circular which means we can essentially stitch both ends of the corner.
-	// We can also keep track of the minimum sum and see if stiching the two ends indeed result in a
+	// Key Idea: Since the array is circular which means we can essentially stitch both ends of the corner
+	// we can also keep track of the minimum sum and see if stiching the two ends indeed result in a
 	// greater sum than the one we obtain from the kaden's algorithm
 
 	var minSumForward, maxSumForward, maxSumCircular int
@@ -14,19 +13,14 @@ func maxSubarraySumCircular(nums []int) int {
 	for i := 0; i < len(nums); i++ {
 		sumTotal += nums[i]
 	}
-
 	maxSumCircular = sumTotal - minSumForward
-
-	var result int
 
 	// Account for the array with only negative values
 	if maxSumForward < 0 {
-		result = maxSumForward
-	} else {
-		result = max(maxSumForward, maxSumCircular)
+		return maxSumForward
 	}
 
-	return result
+	return max(maxSumForward, maxSumCircular)
 }
 
 func getMaxSumSubarray(nums []int) int {

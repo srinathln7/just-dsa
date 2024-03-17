@@ -1,9 +1,8 @@
 package main
 
 func maxTurbulenceSize(arr []int) int {
-
 	// Key Idea: To use sliding window approach of variable size with two pointers `l` and `r`
-	// We set `l` and `r` pointers initially at the beginning. And then traverse the `r` pointer along the array if array is greater than 1.
+	// We set `l` and `r` pointers initially at the beginning. And then traverse the `r` pointer along the array
 	// If a turbulent subarray condition is met, we update the maxLen accordingly otherwise we update the `l` pointer to
 	// the current position of `r` pointer and continue our search until we meet the end of the array
 
@@ -22,16 +21,16 @@ func maxTurbulenceSize(arr []int) int {
 
 		// If the conditions for a turbulent subarray are met, update the maximum length
 		// We do `r-l+2` because `r-l+1` elements denotes the number of elements b/w left and right index
-		// It does not account for element `r+1` which is also a part of the turbulent subarray.
+		// It does not account for `r+1`st element which is also a part of the turbulent subarray.
 		// Hence `(r-l+1)+1`
 		case r == l || (arr[r-1] < arr[r] && arr[r] > arr[r+1]) || (arr[r-1] > arr[r] && arr[r] < arr[r+1]):
 			maxLen = max(maxLen, r-l+2)
 
 		// If the current elements don't form a turbulent subarray, update the left pointer `l` to the current position of the right pointer
+		// and traverse until the end of the array
 		default:
 			l = r
 		}
-
 		r++
 	}
 
