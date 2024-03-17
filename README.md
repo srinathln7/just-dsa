@@ -1,55 +1,111 @@
-# just-dsa
+# Just-DSA
 
-### Arrays and Strings
+This project contains various interesting algorithms and data structures implemented in Go. 
 
-This directory contains solutions to problems related to arrays and strings. Inside the `arrays` directory, you'll find solutions for various array manipulation tasks such as concatenation, iteration, and removal of elements. Similarly, the `strings` directory contains solutions for string-related problems such as finding the first unique character, string compression, and string rotation.
+## Arrays and Strings
+Contains implementations related to arrays and strings.
 
-### Backtracking
+- `arrays`
+  - `concatenation-array`: Implements concatenation of an array.
+  - `iterator`: Implements an iterator for arrays.
+  - `longest-consecutive-seq`: Finds the length of the longest consecutive sequence in an array.
+  - `remove-element`: Removes an element from an array.
+  - `zero-matrix`: Converts rows and columns to zero in a matrix.
 
-Here, you'll find solutions to problems that are typically solved using backtracking algorithms. Examples include generating combinations, finding paths in a graph, and computing permutations.
+- `strings`
+  - `first-unique-character`: Finds the first unique character in a string.
+  - `interleave-iterator-string`: Interleaves characters from two strings using an iterator.
+  - `string-compression`: Compresses a string by replacing consecutive characters with their count.
+  - `string-rotate`: Rotates characters in a string.
+  - `valid-parenthesis-string`: Checks if a string containing '(' and ')' characters is valid.
 
-### Binary Search
+## Backtracking
+Implements backtracking algorithms.
 
-The `binary-search` directory contains solutions to problems that involve binary search algorithms. These problems often require finding a specific target value within a sorted array or determining an optimal value using binary search techniques.
+- `combination`: Generates combinations from a given array.
+- `combination-sum`: Finds combinations that sum up to a target value.
+- `path-sum-tree`: Determines if there exists a root-to-leaf path with a given sum in a binary tree.
+- `permutation-with-no-duplicates`: Generates permutations of a set of unique integers.
+- `permutation-of-set`: Generates permutations of a set of integers.
+- `phone-num-combination`: Generates combinations of a phone number.
+- `subset-without-duplicates`: Generates subsets of a set of unique integers.
+- `super-set`: Generates the super set of given elements.
 
-### Dynamic Programming
+## Binary Search
+Implements binary search algorithms.
 
-In this directory, you'll find solutions to problems solved using dynamic programming techniques. Problems related to dynamic programming often involve breaking down a complex problem into smaller subproblems and solving them iteratively.
+- `2d-binary-search`: Performs binary search in a 2D matrix.
+- `bad-version`: Finds the first bad version in a sequence.
+- `binary-search`: Performs binary search on a sorted array.
+- `guessing-game`: Implements a guessing game algorithm.
+- `koko-eating-banana`: Determines the minimum integer value of k to make the total number of bananas eaten equal to h.
 
-### Graph
+## Dynamic Programming
+Implements dynamic programming algorithms.
 
-The `graph` directory contains solutions to problems related to graph algorithms. These problems often involve traversing graphs, finding paths, or performing operations on graph nodes.
+- `1d`: Contains algorithms using 1D dynamic programming.
+- `2d`: Contains algorithms using 2D dynamic programming.
+- `fixed-knapsack`: Solves knapsack problems with fixed capacity.
+- `unbounded-knapsack`: Solves knapsack problems with unlimited items.
 
-### Linked List
+## Graph
+Implements graph algorithms.
 
-Here, you'll find solutions to problems related to linked lists. These problems often involve operations such as insertion, deletion, or traversal of linked list nodes.
+- `advanced`: Contains advanced graph algorithms like Bellman-Ford, Dijkstra's, Kruskal's, etc.
+- `basic`: Contains basic graph algorithms like BFS, DFS, shortest paths, etc.
+- `trees`: Contains algorithms related to trees and heaps.
 
-### Prefix Sums
+## Linked List
+Contains algorithms and utilities related to linked lists.
 
-The `prefix-sums` directory contains solutions to problems that can be optimized using prefix sum techniques. Problems in this category often involve finding subarrays with specific sums or calculating cumulative sums.
+- Various algorithms for linked lists manipulation and operations.
 
-### Queue
+## Prefix Sums
+Implements algorithms using prefix sum technique.
 
-In this directory, you'll find solutions to problems related to queues. These problems often involve implementing queue data structures or solving problems using queue-based algorithms.
+- `cal-prefix-sum`: Calculates prefix sum of an array.
+- `find-pivot-idx`: Finds the pivot index of an array.
+- `no-of-subarr-with-sum-k`: Counts the number of contiguous subarrays that sum up to a target value.
+- `pdt-of-array-except-self`: Calculates product of array except self.
 
-### Sliding Window
+## Queue
+Implements queue-related algorithms.
 
-The `sliding-window` directory contains solutions to problems that can be solved using the sliding window technique. Problems in this category often involve finding subarrays or substrings with specific properties.
+- `reconstruction-by-height`: Reconstructs the queue based on height and number of taller people ahead.
+- `stack-as-queue`: Implements a queue using stacks.
+- `student-sandwich`: Determines if a student can obtain a sandwich in a queue.
 
-### Sort
+## Sliding Window
+Implements algorithms using sliding window technique.
 
-Here, you'll find solutions to problems related to sorting algorithms. These problems often involve implementing various sorting algorithms or solving problems using sorting techniques.
+- `fixed-size`: Contains algorithms using fixed-size sliding window.
+- `variable-size`: Contains algorithms using variable-size sliding window.
 
-### Stack
+## Sort
+Implements sorting algorithms.
 
-The `stack` directory contains solutions to problems related to stacks. These problems often involve implementing stack data structures or solving problems using stack-based algorithms.
+- `insertion-sort`: Implements insertion sort algorithm.
+- `merge-sort`: Implements merge sort algorithm.
 
-### Time Series
+## Stack
+Implements stack-related algorithms.
 
-In this directory, you'll find solutions to problems related to time series data. These problems often involve analyzing or processing time series data to extract useful information.
+- `baseball`: Calculates the total score in a baseball game.
+- `min-stack`: Implements a stack that supports push, pop, top, and retrieving the minimum element.
+- `valid-parenthesis`: Determines if the given string of parentheses is valid.
 
-### Two Pointers
+## Time Series
+Contains algorithms related to time series data.
 
-Here, you'll find solutions to problems that can be solved using the two-pointer technique. Problems in this category often involve iterating through arrays or lists using two pointers to solve specific tasks.
+- `buy-sell-stock-1`: Calculates the maximum profit from buying and selling stocks.
+- `buy-sell-stock-2`: Calculates the maximum profit from multiple transactions of buying and selling stocks.
 
-Each directory contains subdirectories for specific problem sets along with their corresponding solutions and README files for better understanding and documentation.
+## Two Pointers
+Implements algorithms using two-pointer technique.
+
+- `container-with-most-water`: Finds the container with the most water.
+- `remove-duplicates`: Removes duplicates from a sorted array.
+- `remove-duplicates-2`: Removes duplicates from a sorted array allowing at most two duplicates.
+- `valid-palindrome`: Determines if a given string is a valid palindrome.
+
+For detailed explanations and implementation of each algorithm, refer to the respective README files within each directory.
