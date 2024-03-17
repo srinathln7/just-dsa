@@ -27,13 +27,15 @@ func (h *MaxHeap) Pop() any {
 
 func findMaximizedCapital(k int, w int, profits []int, capital []int) int {
 
-	// KEY IDEA: Create a project struct with profits and capital info. and maintain max heap for the project as per the projects profit.
-	// Sort the project as per the capital required in ascending order.
+	// KEY IDEA: Create a project struct with profits and capital info.
+	// Sort the project according to its capital in ascending order and continue pushing the project to the max heap
+	// (maintained as per the projects profit.) until your current capital can afford that project. After that,
+	// pop the project until k reaches 0 or no further project is left on the heap.
 
 	n := len(profits)
 	maxHeap := &MaxHeap{}
 
-	// Push the project to both min and max heap
+	// Push the project to max heap
 	projects := make([]Project, n)
 	for i := 0; i < n; i++ {
 		projects[i] = Project{capital: capital[i], profit: profits[i]}

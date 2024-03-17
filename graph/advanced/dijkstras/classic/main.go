@@ -31,7 +31,7 @@ func shortestPath(edges [][3]int, n, src int) map[int]int {
 	shortest := make(map[int]int)
 
 	// First form the adjacency list
-	adjacencyList := make(map[int][]Node, n+1)
+	adjacencyList := make(map[int][]Node, n)
 	for _, edge := range edges {
 		start, dest, cost := edge[0], edge[1], edge[2]
 		adjacencyList[start] = append(adjacencyList[start], Node{id: dest, cost: cost})
@@ -85,8 +85,8 @@ func main() {
 	}
 
 	// Output:
-	// 	Shortest distance from node 1 to node 3 : 3
-	// Shortest distance from node 1 to node 4 : 8
 	// Shortest distance from node 1 to node 1 : 0
 	// Shortest distance from node 1 to node 2 : 1
+	// Shortest distance from node 1 to node 3 : 3
+	// Shortest distance from node 1 to node 4 : 8
 }

@@ -5,7 +5,7 @@ import (
 	"unicode"
 )
 
-func printVertically(s string) []string {
+func PrintVertically(s string) []string {
 	// Convert given string to string array
 	strArray := strings.Split(s, " ")
 	maxLength := 0

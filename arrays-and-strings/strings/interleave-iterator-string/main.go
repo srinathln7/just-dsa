@@ -1,13 +1,15 @@
 package main
 
-import (
-	"strings"
-)
+import "strings"
 
-func printvertically(s string) []string {
+func printVertically(s string) []string {
+
+	// Key Idea: To convert the given string into a string array seperated by spaces. The length of the
+	// resulting array will be the length of the longest word in the formed string array
+
 	strArr := strings.Split(s, " ")
 
-	// Determine max length
+	// Determine max length of the result array
 	maxLength := 0
 	for _, str := range strArr {
 		if len(str) > maxLength {
@@ -15,7 +17,7 @@ func printvertically(s string) []string {
 		}
 	}
 
-	// Pad whitespaces
+	// Pad whitespaces to the right i.e. trailing white spaces
 	for i, str := range strArr {
 		if len(str) < maxLength {
 			strArr[i] = str + strings.Repeat(" ", maxLength-len(str))
