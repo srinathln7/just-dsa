@@ -6,9 +6,9 @@ To efficiently solve this problem, we need a data structure that allows constant
 
 ## Approach
 1. Initialize an empty deque and an empty result slice.
-2. Implement a function `cleanDeque` to remove indices from the front of the deque that are out of the current window and to remove indices from the back of the deque if the current element is greater than or equal to the corresponding elements in the deque.
+2. Implement a function `constMaxUntil` to remove indices from the front of the deque that are out of the current window and to remove indices from the back of the deque if the current element is greater than or equal to the corresponding elements in the deque.
 3. Iterate through the array:
-    - Clean the deque by calling `cleanDeque` for the current index.
+    - Call`constMaxUntil` for the current index to always keep the max. value in a window at the front of the deque.
     - Add the current index to the deque.
     - If the current index is greater than or equal to `k - 1`, append the maximum element from the deque to the result.
 4. Return the result.
