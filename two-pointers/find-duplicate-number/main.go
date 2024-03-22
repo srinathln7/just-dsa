@@ -5,7 +5,7 @@ func findDuplicate(nums []int) int {
 	// Key Idea: NOTICE the integer ranges from [1...n]. This is a good clue that we might want to use the
 	// range itself as an index of the array. To find the duplicate number that occurs only once => We can frame
 	// it as a linked list problem We'll treat the array as a linked list where each element points to the value at its index.
-	// Since there is one repeated number, there will be a cycle in this linked list. Noteice that in the range `0` is never
+	// Since there is one repeated number, there will be a cycle in this linked list. Notice that`0` is never
 	// included in the range which means no node will point to the zeroth node. This is IMPORTANT since this gaurantees we
 	// start traversing the linked list at a non-cyclic portion.
 
