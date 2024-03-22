@@ -9,21 +9,21 @@ func searchMatrix(matrix [][]int, target int) bool {
 
 	// Rem: 1d index = col_index + (row_index * n)
 
-	var midIndex, midValue int
+	var midIdx, midValue int
 	for l <= r {
-		midIndex = l + (r-l)/2
+		midIdx = l + (r-l)/2
 
 		// Convert 1D mapping back to 2D mapping
-		midValue = matrix[midIndex/n][midIndex%n]
+		midValue = matrix[midIdx/n][midIdx%n]
 
 		if target == midValue {
 			return true
 		}
 
 		if target < midValue {
-			r = midIndex - 1
+			r = midIdx - 1
 		} else {
-			l = midIndex + 1
+			l = midIdx + 1
 		}
 	}
 

@@ -1,6 +1,6 @@
 package main
 
-func searchMatrix(matrix [][]int, target int) bool {
+func SearchMatrix(matrix [][]int, target int) bool {
 	m := len(matrix)
 	n := len(matrix[0])
 
