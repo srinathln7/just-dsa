@@ -11,7 +11,6 @@ func combinationSum(candidates []int, target int) [][]int {
 
 func dfs(candidates, combination []int, result *[][]int, target, startIdx int) {
 
-	fmt.Printf("Target at index %d => %d\n", startIdx, target)
 	// When the desired target is reached append the result to the count
 	if target == 0 {
 		*result = append(*result, append([]int{}, combination...))
@@ -25,11 +24,12 @@ func dfs(candidates, combination []int, result *[][]int, target, startIdx int) {
 
 	for i := startIdx; i < len(candidates); i++ {
 		combination = append(combination, candidates[i])
-		fmt.Printf("combination at index %d => %d \n", i, combination)
+
+		// Since we can use the same item unlimited number of items, we recursively call with the same index `i`
+		// until target becomes negative
 		dfs(candidates, combination, result, target-candidates[i], i)
 
 		// Backtrack the combination slice => Similar to the generation of a subset to the set problem
-		fmt.Printf("Back tracking at index %d \n", i)
 		combination = combination[:len(combination)-1]
 	}
 }
