@@ -2,21 +2,21 @@ package main
 
 func checkValidString(s string) bool {
 
+	// Key Idea: As we range over the characters, we keep track of the number of unmatached left parenthesis.
+	// When we have a wild card character, we can make three decisions. We ignore the empty. If we choose to
+	// put `(` then no. of unmatched left parenthesis will increase and `)` then no of unmatched left parenthesis
+	// will decrease.
+
 	// leftMin : Represents the value when choosing wild card `*` as `)`
 	// leftMax : Represents the value when choosing wild card `*` as `(`
-
 	var leftMin, leftMax int
-
-	var chStr string
 	for _, ch := range s {
-		chStr = string(ch)
-
-		switch chStr {
-		case "(":
+		switch ch {
+		case '(':
 			leftMin, leftMax = leftMin+1, leftMax+1
-		case ")":
+		case ')':
 			leftMin, leftMax = leftMin-1, leftMax-1
-		case "*":
+		default:
 			leftMin, leftMax = leftMin-1, leftMax+1
 		}
 
@@ -32,11 +32,9 @@ func checkValidString(s string) bool {
 		// parentheses and asterisks. In essence, it means that the string cannot be
 		// balanced, rendering it invalid. This approach ensures that the string's validity is continuously monitored and maintained throughout the traversal.
 
-		// Rest leftMin to zero if it ever becomes negative because we can revisit one of the previous wildcard pattern and
-		// make it an empty string
+		// Rest leftMin to zero if it ever becomes negative
 		leftMin = max(0, leftMin)
 	}
 
-	// It has balanced out
 	return leftMin == 0
 }
