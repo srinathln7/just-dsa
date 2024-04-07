@@ -8,21 +8,21 @@ func insert(intervals [][]int, newInterval []int) [][]int {
 
 	var result [][]int
 	i, n := 0, len(intervals)
-	newStart, newEnd := newInterval[0], newInterval[1]
+	newIntervalStart, newIntervalEnd := newInterval[0], newInterval[1]
 
 	// Add all intervals before the `newInterval`
-	for i < n && intervals[i][1] < newStart {
+	for i < n && intervals[i][1] < newIntervalStart {
 		result = append(result, intervals[i])
 		i++
 	}
 
 	// Merge the overlapping intervals
-	for i < n && intervals[i][0] <= newEnd {
-		newStart = min(intervals[i][0], newStart)
-		newEnd = max(intervals[i][1], newEnd)
+	for i < n && intervals[i][0] <= newIntervalEnd {
+		newIntervalStart = min(intervals[i][0], newIntervalStart)
+		newIntervalEnd = max(intervals[i][1], newIntervalEnd)
 		i++
 	}
-	result = append(result, []int{newStart, newEnd})
+	result = append(result, []int{newIntervalStart, newIntervalEnd})
 
 	// Add the remaining intervals
 	for i < n {
