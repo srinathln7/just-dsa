@@ -6,32 +6,25 @@ type ListNode struct {
 }
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	// Assume a Linkedlist with length N, removing `n`th from the end is equivalent  to removing `N-n+1`st node from the beginning
-	// Constraints => n <= N,  N-n+1 <= N => n >= 1
-	if n == 0 {
-		return head
+
+	// Key Idea: Keep track of two pointers `fast` and `slow` and move the slow pointer by a delay of `n` steps
+	// By the time fast pointer reaches the end slow pointer would be pointing to the `nth` node from the end
+
+	dummy := &ListNode{Next: head}
+	fast, slow := head, dummy
+
+	// Move fast pointer by `n` steps
+	for i := 0; i < n; i++ {
+		fast = fast.Next
 	}
-	curr := head
-	var N int
-	for curr != nil {
-		N++
-		curr = curr.Next
+
+	// Now start moving both fast and slow pointer until `fast` pointer reaches the end
+	for fast != nil {
+		fast = fast.Next
+		slow = slow.Next
 	}
-	if n > N || N == 0 {
-		return nil
-	}
-	if N == 1 && n == 1 {
-		return nil
-	}
-	k := N - n + 1
-	if k == 1 {
-		head = head.Next
-		return head
-	}
-	curr = head
-	for i := 1; i < k-1; i++ {
-		curr = curr.Next
-	}
-	curr.Next = curr.Next.Next
-	return head
+
+	// Skip the `nth` node from the end
+	slow.Next = slow.Next.Next
+	return dummy.Next
 }
