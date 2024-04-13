@@ -32,7 +32,10 @@ func topKFrequent(nums []int, k int) []int {
 	// Key Idea: Build the freq table and then maintain a min heap of constant size `k` to store top `k` freq elements/
 	// Building the `freq` table will let us know how many unique elements are there in the map. Then we range over the
 	// this map and keep pushing to the min heap until size `k`. Once it reaches size `k`, we keep pushing and popping
-	// simulataneously. Time complexity O(n. log k)
+	// simulataneously. If the element has a higher freq then the min. element gets popped out. Incase the newly added element
+	// has a lower freq than the one at the top, it climbs to the top due to the `heapify` property ensured by the heaps.
+
+	//Time complexity O(n. log k)
 
 	freq := make(map[int]int)
 	for _, num := range nums {

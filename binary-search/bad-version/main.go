@@ -9,11 +9,14 @@ package main
  */
 
 func firstBadVersion(n int) int {
-	l, r := 1, n
 
-	var mid int
+	// Key Idea: Left spectrum represents the good versions and right spectrum maintains the bad version. We keep moving
+	// both the pointers towards each other until the pointers cross or matches. The minute the left pointer shifts from
+	// good spectrum to bad spectrum is out first bad version.
+
+	l, r := 1, n
 	for l <= r {
-		mid = l + (r-l)/2
+		mid := l + (r-l)/2
 		if isBadVersion(mid) {
 			r = mid - 1
 		} else {
