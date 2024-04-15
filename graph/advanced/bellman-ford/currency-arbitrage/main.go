@@ -78,9 +78,9 @@ func getNegativeCycle(graph Graph, src int) []int {
 		copy(temp, dist)
 
 		for _, edge := range graph.edges {
-			src, dst, weight := edge.from, edge.to, edge.weight
-			temp[dst] = min(temp[dst], dist[src]+weight)
-			parent[dst] = src
+			from, to, weight := edge.from, edge.to, edge.weight
+			temp[to] = min(temp[to], dist[from]+weight)
+			parent[to] = from
 		}
 		dist = temp
 	}
