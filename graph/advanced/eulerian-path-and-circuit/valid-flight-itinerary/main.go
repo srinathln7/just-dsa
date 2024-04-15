@@ -38,6 +38,7 @@ func findItinerary(tickets [][]string) []string {
 		result = append(result, src)
 	}
 
+	// Perform a depth-first search (DFS) or Hierholzer's algorithm to find the Eulerian path
 	// Run the DFS with `JFK` as the src node
 	dfs("JFK")
 
