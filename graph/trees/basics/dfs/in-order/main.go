@@ -9,7 +9,7 @@ type TreeNode struct {
 
 func inorderTraversal(root *TreeNode) []int {
 
-	// Inorder Traversal => left -> root -> right
+	// Inorder Traversal => left_subtree -> root -> right_subtree
 	var result []int
 	switch {
 	case root == nil:

@@ -24,5 +24,7 @@ func isvalidBST(root, min, max *TreeNode) bool {
 
 	// Recursively check for the BST property in left and right subtree
 	// Max value of a left subtree must be the ROOT and Min value of the right subtree must be the ROOT
+	// IMPORTANT MISTAKE: make sure not to pass `return isvalidBST(root.Left, nil, root) && isvalidBST(root.Right, root, nil)`
+	// as we need to check for all subtrees in left and right
 	return isvalidBST(root.Left, min, root) && isvalidBST(root.Right, root, max)
 }
