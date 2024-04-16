@@ -38,18 +38,19 @@ func maxProfit(prices []int) int {
 		switch s.isBuy {
 
 		// Decision to either buy or cooldown
-		// Recursively calculate the profit that can be obtained by buying the stock. We set the next state
-		// by incrementing the index and changing the buy state to false
+		// Recursively calculate the profit that can be obtained by buying the stock at this index.
+		// We set the next state by incrementing the index and changing the buy state to false
 		// Set max. profit to be max b/w profit obtained from buying or cooling down
 		case true:
 			currProfit := dfs(state{idx: currentIdx + 1, isBuy: false}) - prices[currentIdx]
 			dp[s] = max(currProfit, cooldown)
 
 		// Decision to either sell or cooldown
-		// Recursively calculate the profit that can be obtained by selling the stock
+		// Recursively calculate the profit that can be obtained by selling the stock at this index.
 		// Set max. profit to be max b/w profit obtained from selling the stock or cooling down. We set the next state
 		// by double incrementing the index and changing the buy state to true
-		// IMPORTANT: we update the idx to `currentIdx+2` because of the cooldown period i.e. we cannot buy the next day due to the forced cool down constraint
+		// IMPORTANT: we update the idx to `currentIdx+2` because of the cooldown period i.e. we cannot buy the next day due to
+		// the forced cool down constraint
 		case false:
 			currProfit := dfs(state{idx: currentIdx + 2, isBuy: true}) + prices[currentIdx]
 			dp[s] = max(currProfit, cooldown)
