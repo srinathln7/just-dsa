@@ -1,4 +1,35 @@
-# Subsets with no duplicates
+# Subsets with Duplicates
+
+Given an integer array `nums` that may contain duplicates, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.
+
+## Intuition:
+To generate all possible subsets while avoiding duplicates, we can use a Depth First Search (DFS) algorithm with backtracking. First, we sort the input array to help identify duplicates efficiently. Then, during DFS traversal, we ensure that duplicate subsets are skipped. We achieve this by comparing each element with its previous element within the current subset, skipping it if it's a duplicate.
+
+## Approach:
+1. Sort the input array `nums`.
+2. Define a DFS function that takes the starting index and the current subset as parameters.
+3. In the DFS function:
+   - Append the current subset to the result.
+   - Iterate over the array starting from the given starting index.
+   - Skip duplicates by comparing the current element with its previous element within the current subset.
+   - Recursively call DFS for the next element to include it in the subset.
+   - Backtrack by removing the last element added to the subset.
+4. Start DFS with an initial starting index of 0 and an empty subset.
+5. Return the result containing all unique subsets.
+
+## Time Complexity:
+- Sorting the array takes O(NlogN) time.
+- Generating subsets using DFS takes O(2^N) time.
+- Overall time complexity: O(NlogN + 2^N), where N is the length of the input array `nums`.
+
+## Space Complexity:
+- The space complexity for storing subsets and recursion stack during DFS is O(2^N).
+- Sorting the array requires O(N) space.
+- Overall space complexity: O(2^N).
+
+# Alt.go
+
+### Subsets with no duplicates
 
 Given an integer array `nums` that may contain duplicates, the task is to return all possible subsets (the power set) of `nums`. The solution set must not contain duplicate subsets.
 

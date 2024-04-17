@@ -1,40 +1,48 @@
+package main
+
+import "sort"
+
 func subsetsWithDup(nums []int) [][]int {
+
+	// Key Idea: To start detecting the duplicates, first sort and input array.
+	// Run DFS with backtracking algorithm for all possible sets. Include the
+	// condition to detect duplicates of subsets
 
 	var result [][]int
 
-	// Lets create a frequency map
-	freq := make(map[int]int)
-	for _, num := range nums {
-		freq[num]++
-	}
+	// Sort the input array first to start detecting duplicates
+	sort.Ints(nums)
 
-	dfsWithBT(nums, []int{}, freq, &result)
-	return result
-}
+	var dfs func(startIdx int, subset []int)
+	dfs = func(startIdx int, subset []int) {
 
-func dfsWithBT(nums, subset []int, freq map[int]int, result *[][]int) {
-	*result = append(*result, append([]int{}, subset...))
-	for num := range freq {
-		// Skip forming the subset if you have vanished all the elements with in the current subset
-		// or the last element in your formed subset is greater than current num in the map since you would
-		// have already formed those subsets. BUT WHY we do we skip if the last element in our current subset is
-		// greater than the num and HOW does it ensure those subsets are already formed?
-		// This is because, no matter how unsorted your array is, we will always form  all subsets in SORTED order.
-		// This means if there is ever a case, where the last element in our subset is greater than the current number
-		// in the map, those subsets are already been formed. Hence, we skip the iteration to avoid duplicates.
-		// And avoiding to form subsets when `freq[num] == 0` in the current recursive stack frame is STRAIGHT FORWARD.
-		if freq[num] == 0 || len(subset) > 0 && subset[len(subset)-1] > num {
-			continue
+		result = append(result, append([]int{}, subset...))
+
+		for i := startIdx; i < len(nums); i++ {
+
+			// In the code if i > start && nums[i] == nums[i-1], the condition i > start ensures that we are not checking for duplicates at the very beginning
+			// of the array. This condition helps us skip duplicates when we are not starting from the beginning of the array but rather traversing it recursively.
+
+			// Consider the following example: [1,2,2]
+			// When we encounter the first `2`, we don't want to consider it as a duplicate because it's the first occurrence of `2` in the current subset.
+			// However, when we encounter the second `2`, we want to skip it because it's a duplicate of the previous `2`.
+			// IMPORTANT: By using the condition `i > start`, we ensure that we are only comparing the current element with its previous element within the current subset
+			// and not with elements from previous subsets. This helps in skipping duplicates effectively and generating only unique subsets.
+			if i > startIdx && nums[i] == nums[i-1] {
+				continue
+			}
+
+			// Decision to include the current element
+			subset = append(subset, nums[i])
+
+			// Recurse to get the subset of the set [i]
+			dfs(i+1, subset)
+
+			// Backtrack
+			subset = subset[:len(subset)-1]
 		}
-
-		// Append the current num to the subset and decrement the freq. count
-		subset = append(subset, num)
-		freq[num]--
-
-		dfsWithBT(nums, subset, freq, result)
-
-		// Backtrack by popping the last element of the subset and increment the freq. count
-		subset = subset[:len(subset)-1]
-		freq[num]++
 	}
+
+	dfs(0, []int{})
+	return result
 }
