@@ -7,7 +7,9 @@ The key idea is to use a stack to traverse the BST in an iterative manner. By pu
 
 ## Approach
 1. Initialize a stack to hold tree nodes and push all left child nodes of the root onto the stack.
-2. Implement `Next()` to pop the top node from the stack, return its value, and push its right child (if exists) onto the stack.
+2. Implement the `next()` method:
+   - Pop the top element from the stack, which represents the next smallest node.
+   - If the popped node has a right child, push all the **left descendants of its right child** onto the stack.
 3. Implement `HasNext()` to check if the stack is empty.
 
 ## Time Complexity
@@ -16,3 +18,5 @@ The key idea is to use a stack to traverse the BST in an iterative manner. By pu
 
 ## Space Complexity
 - O(h), where `h=log(n)` is the height of the tree. The stack may hold up to h nodes in the worst case, corresponding to the maximum depth of the tree.
+
+

@@ -41,6 +41,11 @@ func (h *MinHeap) Swap(i, j int) { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
 
 func fullBloomFlowers(flowers [][]int, people []int) []int {
 
+	// Key idea: we can use a min-heap to maintain the order of events based on their time.
+	// We iterate over each flower and each person, pushing their arrival and departure times onto the min-heap.
+	// As we process each event from the min-heap, we update the count of flowers in bloom. Finally, we return the
+	// count of flowers in bloom for each person's arrival time.
+
 	n := len(people)
 	result := make([]int, n)
 
