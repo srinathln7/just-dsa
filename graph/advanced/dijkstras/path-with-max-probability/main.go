@@ -2,19 +2,18 @@ package main
 
 import "container/heap"
 
-// Node: Each node has an ID and a cost associated with it
 type Node struct {
-	id          int
-	probability float64
+	id   int
+	prob float64
 }
 
 type MaxHeap []Node
 
 func (h MaxHeap) Len() int           { return len(h) }
-func (h MaxHeap) Less(i, j int) bool { return h[i].probability > h[j].probability }
+func (h MaxHeap) Less(i, j int) bool { return h[i].prob > h[j].prob }
 func (h MaxHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
 func (h MaxHeap) Top() Node          { return h[0] }
-func (h MaxHeap) Empty() bool        { return len(h) == 0 }
+func (h MaxHeap) IsEmpty() bool      { return len(h) == 0 }
 
 func (h *MaxHeap) Push(x any) { *h = append(*h, x.(Node)) }
 func (h *MaxHeap) Pop() any {
@@ -32,50 +31,51 @@ func maxProbability(n int, edges [][]int, succProb []float64, start_node int, en
 	// `dest` and vice-versa.
 
 	// First, form the adjacency list of the given UNDIRECTED graph
-	adj := make(map[int][]Node, n+1)
-	for i := 0; i < len(edges); i++ {
-		src, dest, prob := edges[i][0], edges[i][1], succProb[i]
-		adj[src] = append(adj[src], Node{id: dest, probability: prob})
-		adj[dest] = append(adj[dest], Node{id: src, probability: prob}) // Undirected graph
+	adj := make(map[int][]Node)
+	for i, edge := range edges {
+		src, dst, prob := edge[0], edge[1], succProb[i]
+
+		// Bi-directional graph
+		adj[src] = append(adj[src], Node{id: dst, prob: prob})
+		adj[dst] = append(adj[dst], Node{id: src, prob: prob})
 	}
 
-	// If no neighbour exists from `start_node`, then we cannot travel anywhere
 	if len(adj[start_node]) == 0 {
 		return 0
 	}
 
-	// Initialize a max-heap with the `start_node` same as end node with max probability 1.0
 	maxHeap := &MaxHeap{}
-	heap.Push(maxHeap, Node{id: start_node, probability: 1.0})
+	maxProb := make(map[int]float64)
+	heap.Push(maxHeap, Node{id: start_node, prob: 1.0})
 
-	maxProb := make(map[int]Node)
-	for !maxHeap.Empty() {
-		visiting := maxHeap.Top()
-		heap.Pop(maxHeap)
+	for !maxHeap.IsEmpty() {
+		visiting := heap.Pop(maxHeap).(Node)
 
-		if _, visited := maxProb[visiting.id]; visited {
+		// If already visited
+		if _, exists := maxProb[visiting.id]; exists {
 			continue
 		}
 
 		// IMPORTANT: Only mark the node as visited and store the max probability associated
 		// with that path AFTER it has been popped out out of the max. heap.
 		// For eg: To reach node 0 from node 0 => probability is 1.0
-		maxProb[visiting.id] = Node{id: visiting.id, probability: visiting.probability}
+		// Mark the node as visited
+		maxProb[visiting.id] = visiting.prob
 
-		// Visit the neighbours of the recently visited node
-		for _, node := range adj[visiting.id] {
-			// Make sure the neighbour is not visited before
-			if _, visited := maxProb[node.id]; !visited {
-				// Mulitply the probability
-				node.probability *= visiting.probability
-				heap.Push(maxHeap, node)
+		// Visit its neighbours
+		for _, neighbour := range adj[visiting.id] {
+			// IMPORTANT: Check if the node is already visited. If yes, the max. probabality associated with
+			// visiting that node has already been captured
+			if _, visited := maxProb[neighbour.id]; !visited {
+				neighbour.prob *= visiting.prob
+				heap.Push(maxHeap, neighbour)
 			}
 		}
 	}
 
 	// Make sure the path exists from `start_node` to `end_node`
-	if node, exists := maxProb[end_node]; exists {
-		return node.probability
+	if val, exists := maxProb[end_node]; exists {
+		return val
 	}
 
 	return 0

@@ -12,16 +12,16 @@ func maxSubArraySum(nums []int) int {
 
 func maxSubArray(nums []int) (int, []int) {
 
-	maxG := nums[0]
-	maxSoFar := nums[0]
+	maxG, maxSoFar := nums[0], nums[0]
 	startIdx, endIdx := 0, 0
 	startTracker := 0
 
-	for i, num := range nums {
+	for i := 1; i < len(nums); i++ {
+		num := nums[i]
 
 		// If the current num is greater than the sum of all previous nums + current num
 		// then we start a new sub-array
-		if num > num+maxSoFar {
+		if num > maxSoFar+num {
 			maxSoFar = num
 			startTracker = i
 		} else {

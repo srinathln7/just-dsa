@@ -1,51 +1,35 @@
 package main
 
-// Definition for a Node.
-type Node struct {
-	Val       int
-	Neighbors []*Node
-}
+func cloneGraphDFS(node *Node) *Node {
 
-func cloneGraph(node *Node) *Node {
-
+	 // Key Idea: Traverse the graph using DFS and recursively the clone each nodes
+	 
 	if node == nil {
 		return nil
 	}
 
-	// Initialize the clone with the root of the original graph
+	// Map to store the mapping between original nodes and their clones
+	visited := make(map[*Node]*Node)
+
+	return cloneDFS(node, visited)
+}
+
+func cloneDFS(node *Node, visited map[*Node]*Node) *Node {
+
+	// If the node has already been visited, return its clone
+	if clone, isVisited := visited[node]; isVisited {
+		return clone
+	}
+
+	// Create the clone of the current node
 	clone := &Node{Val: node.Val}
 
-	// Make a visit map
-	visit := make(map[*Node]*Node)
+	// Mark the node as visited
+	visited[node] = clone
 
-	// Map the original node to the clone node
-	visit[node] = clone
-
-	var queue []*Node
-	queue = append(queue, node)
-
-	for len(queue) > 0 {
-		curr := queue[0]
-		queue = queue[1:]
-
-		for _, neighbour := range curr.Neighbors {
-			if _, isVisited := visit[neighbour]; !isVisited {
-
-				// Clone the neighbour
-				cloneNeighbour := &Node{Val: neighbour.Val}
-
-				// Mark the neighbour as visited
-				visit[neighbour] = cloneNeighbour
-
-				// Copy the original node neighbours to the clone node neighbours
-				visit[curr].Neighbors = append(visit[curr].Neighbors, cloneNeighbour)
-
-				// Enqueue the current neighbours from the original node who are not visited yet
-				queue = append(queue, neighbour)
-			} else {
-				visit[curr].Neighbors = append(visit[curr].Neighbors, visit[neighbour])
-			}
-		}
+	// Recursively clone the neighbors of the current node
+	for _, neigbour := range node.Neighbors {
+		clone.Neighbors = append(clone.Neighbors, cloneDFS(neigbour, visited))
 	}
 
 	return clone
