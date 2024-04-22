@@ -1,12 +1,6 @@
 package main
 
-// Definition for a Node.
-type Node struct {
-	Val       int
-	Neighbors []*Node
-}
-
-func cloneGraph(node *Node) *Node {
+func cloneGraphBFS(node *Node) *Node {
 
 	if node == nil {
 		return nil

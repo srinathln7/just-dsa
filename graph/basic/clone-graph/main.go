@@ -1,36 +1,36 @@
 package main
 
-func cloneGraphDFS(node *Node) *Node {
+// Definition for a Node.
+type Node struct {
+	Val       int
+	Neighbors []*Node
+}
 
-	 // Key Idea: Traverse the graph using DFS and recursively the clone each nodes
-	 
+func cloneGraph(node *Node) *Node {
+
 	if node == nil {
 		return nil
 	}
 
-	// Map to store the mapping between original nodes and their clones
+	// Store mapping from original node to copy node
 	visited := make(map[*Node]*Node)
 
-	return cloneDFS(node, visited)
-}
+	var dfs func(*Node) *Node
+	dfs = func(curr *Node) *Node {
+		if copyNode, exists := visited[curr]; exists {
+			return copyNode
+		}
 
-func cloneDFS(node *Node, visited map[*Node]*Node) *Node {
+		copyNode := &Node{Val: curr.Val}
 
-	// If the node has already been visited, return its clone
-	if clone, isVisited := visited[node]; isVisited {
-		return clone
+		// Mark the node as visited
+		visited[curr] = copyNode
+		for _, neighbor := range curr.Neighbors {
+			copyNode.Neighbors = append(copyNode.Neighbors, dfs(neighbor))
+		}
+
+		return copyNode
 	}
 
-	// Create the clone of the current node
-	clone := &Node{Val: node.Val}
-
-	// Mark the node as visited
-	visited[node] = clone
-
-	// Recursively clone the neighbors of the current node
-	for _, neigbour := range node.Neighbors {
-		clone.Neighbors = append(clone.Neighbors, cloneDFS(neigbour, visited))
-	}
-
-	return clone
+	return dfs(node)
 }
