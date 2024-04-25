@@ -1,111 +1,76 @@
 # Just-DSA
 
-This project contains various interesting algorithms and data structures implemented in Go. 
+Welcome to `just-dsa` containing a collection of data structure and algorithm problems. This repository is organized into different directories, each focusing on a specific category of problems. Here's a brief overview of what you'll find:
 
-## Arrays and Strings
-Contains implementations related to arrays and strings.
+## Problem Categories:
 
-- `arrays`
-  - `concatenation-array`: Implements concatenation of an array.
-  - `iterator`: Implements an iterator for arrays.
-  - `longest-consecutive-seq`: Finds the length of the longest consecutive sequence in an array.
-  - `remove-element`: Removes an element from an array.
-  - `zero-matrix`: Converts rows and columns to zero in a matrix.
+- **arrays-and-strings**: Problems related to arrays and strings.
+- **binary-search**: Problems that involve binary search algorithms.
+- **concurrency**: Problems related to concurrent programming.
+- **graph**: Problems involving graphs and graph algorithms.
+- **intervals**: Problems dealing with intervals and ranges.
+- **math**: Problems related to mathematical algorithms and concepts.
+- **queue**: Problems involving queues.
+- **sliding-window**: Problems that can be solved using the sliding window technique.
+- **stack**: Problems involving stacks.
+- **two-pointers**: Problems that can be solved using the two pointers technique.
+- **back-tracking**: Problems that can be solved using backtracking algorithms.
+- **bit-ops**: Problems related to bitwise operations.
+- **dynamic-programming**: Problems that can be solved using dynamic programming techniques.
+- **greedy**: Problems that can be solved using greedy algorithms.
+- **linked-list**: Problems involving linked lists.
+- **prefix-sums**: Problems that can be solved using prefix sums.
+- **sort**: Problems related to sorting algorithms.
+- **time-series**: Problems related to time series data.
 
-- `strings`
-  - `first-unique-character`: Finds the first unique character in a string.
-  - `interleave-iterator-string`: Interleaves characters from two strings using an iterator.
-  - `string-compression`: Compresses a string by replacing consecutive characters with their count.
-  - `string-rotate`: Rotates characters in a string.
-  - `valid-parenthesis-string`: Checks if a string containing '(' and ')' characters is valid.
+## Problem Categories Descriptions:
 
-## Backtracking
-Implements backtracking algorithms.
+1. **Arrays and Strings**: Fundamental data structures used to store and manipulate collections of elements and sequences of characters, respectively.
 
-- `combination`: Generates combinations from a given array.
-- `combination-sum`: Finds combinations that sum up to a target value.
-- `path-sum-tree`: Determines if there exists a root-to-leaf path with a given sum in a binary tree.
-- `permutation-with-no-duplicates`: Generates permutations of a set of unique integers.
-- `permutation-of-set`: Generates permutations of a set of integers.
-- `phone-num-combination`: Generates combinations of a phone number.
-- `subset-without-duplicates`: Generates subsets of a set of unique integers.
-- `super-set`: Generates the super set of given elements.
+2. **Binary Search**: An efficient search algorithm used to find the position of a target value within a sorted array.
 
-## Binary Search
-Implements binary search algorithms.
+3. **Concurrency**: The ability of a system to handle multiple tasks simultaneously, often achieved through techniques such as multithreading and multiprocessing.
 
-- `2d-binary-search`: Performs binary search in a 2D matrix.
-- `bad-version`: Finds the first bad version in a sequence.
-- `binary-search`: Performs binary search on a sorted array.
-- `guessing-game`: Implements a guessing game algorithm.
-- `koko-eating-banana`: Determines the minimum integer value of k to make the total number of bananas eaten equal to h.
+4. **Graphs**: Abstract data structures consisting of nodes (vertices) and edges that connect them, used to represent relationships between objects.
 
-## Dynamic Programming
-Implements dynamic programming algorithms.
+5. **Intervals**: Representations of continuous ranges of values or time periods.
 
-- `1d`: Contains algorithms using 1D dynamic programming.
-- `2d`: Contains algorithms using 2D dynamic programming.
-- `fixed-knapsack`: Solves knapsack problems with fixed capacity.
-- `unbounded-knapsack`: Solves knapsack problems with unlimited items.
+6. **Math**: Various mathematical algorithms and concepts, including arithmetic operations, number theory, geometry, and more.
 
-## Graph
-Implements graph algorithms.
+7. **Queue**: A data structure that follows the First-In-First-Out (FIFO) principle, where elements are added to the back and removed from the front.
 
-- `advanced`: Contains advanced graph algorithms like Bellman-Ford, Dijkstra's, Kruskal's, etc.
-- `basic`: Contains basic graph algorithms like BFS, DFS, shortest paths, etc.
-- `trees`: Contains algorithms related to trees and heaps.
+8. **Sliding Window**: A technique used to solve problems involving arrays or strings by maintaining a subset of elements within a fixed window size.
 
-## Linked List
-Contains algorithms and utilities related to linked lists.
+9. **Stack**: A data structure that follows the Last-In-First-Out (LIFO) principle, where elements are added and removed from the same end.
 
-- Various algorithms for linked lists manipulation and operations.
+10. **Two Pointers**: A technique used to solve problems by iterating through an array or list using two pointers, often to find a certain pattern or sum.
 
-## Prefix Sums
-Implements algorithms using prefix sum technique.
+11. **Backtracking**: A recursive algorithmic technique that involves systematically exploring all possible solutions to a problem by making choices at each step.
 
-- `cal-prefix-sum`: Calculates prefix sum of an array.
-- `find-pivot-idx`: Finds the pivot index of an array.
-- `no-of-subarr-with-sum-k`: Counts the number of contiguous subarrays that sum up to a target value.
-- `pdt-of-array-except-self`: Calculates product of array except self.
+12. **Bitwise Operations**: Operations performed on individual bits of binary numbers, commonly used in low-level programming and optimization.
 
-## Queue
-Implements queue-related algorithms.
+13. **Dynamic Programming**: A technique used to solve problems by breaking them down into simpler subproblems and solving each subproblem only once, storing the solutions to avoid redundant computations.
 
-- `reconstruction-by-height`: Reconstructs the queue based on height and number of taller people ahead.
-- `stack-as-queue`: Implements a queue using stacks.
-- `student-sandwich`: Determines if a student can obtain a sandwich in a queue.
+14. **Greedy Algorithms**: Algorithms that make locally optimal choices at each step with the hope of finding a global optimum solution.
 
-## Sliding Window
-Implements algorithms using sliding window technique.
+15. **Linked List**: A linear data structure consisting of a sequence of elements where each element points to the next one in the sequence.
 
-- `fixed-size`: Contains algorithms using fixed-size sliding window.
-- `variable-size`: Contains algorithms using variable-size sliding window.
+16. **Prefix Sums**: A technique used to efficiently calculate cumulative sums of elements in an array.
 
-## Sort
-Implements sorting algorithms.
+17. **Sort**: Algorithms used to arrange elements of a list or array in a particular order, such as numerical or lexicographical order.
 
-- `insertion-sort`: Implements insertion sort algorithm.
-- `merge-sort`: Implements merge sort algorithm.
+18. **Time Series**: Data organized in chronological order, often used in statistics, finance, and other fields to analyze trends over time.
 
-## Stack
-Implements stack-related algorithms.
+Each directory contains its own README.md file with a list of problems specific to that category. Feel free to explore, solve, and contribute to this repository!
 
-- `baseball`: Calculates the total score in a baseball game.
-- `min-stack`: Implements a stack that supports push, pop, top, and retrieving the minimum element.
-- `valid-parenthesis`: Determines if the given string of parentheses is valid.
+## How to Contribute:
 
-## Time Series
-Contains algorithms related to time series data.
+Contributions are welcome! If you have a new problem to add or have found a bug in an existing one, please follow these steps:
 
-- `buy-sell-stock-1`: Calculates the maximum profit from buying and selling stocks.
-- `buy-sell-stock-2`: Calculates the maximum profit from multiple transactions of buying and selling stocks.
+1. Fork this repository.
+2. Create a new branch for your changes.
+3. Make your modifications.
+4. Test your changes if applicable.
+5. Submit a pull request with a descriptive title and detailed explanation of your changes.
 
-## Two Pointers
-Implements algorithms using two-pointer technique.
-
-- `container-with-most-water`: Finds the container with the most water.
-- `remove-duplicates`: Removes duplicates from a sorted array.
-- `remove-duplicates-2`: Removes duplicates from a sorted array allowing at most two duplicates.
-- `valid-palindrome`: Determines if a given string is a valid palindrome.
-
-For detailed explanations and implementation of each algorithm, refer to the respective README files within each directory.
+Thank you for contributing to this repository and happy problem-solving! 🚀
