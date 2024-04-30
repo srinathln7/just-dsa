@@ -1,7 +1,7 @@
 package main
 
 func subarraySum(nums []int, k int) int {
-	// Key Idea: To keep track of every prefix sums in a hash map and check if the difference b/w k and the current sum
+	// Key Idea: To keep track of every prefix sums in a hash map and check if the difference b/w  current sum and `k`
 	// in the iteration exists or not. If it exists, it means there is a subarry with `sum=k` and we increment the count
 	// by the value associated with that sum in the hash map
 

@@ -49,7 +49,7 @@ func (fb *foobar) Bar() {
 	fb.doneCh <- struct{}{}
 }
 
-func main() {
+func alt() {
 	obj := Newfoobar(2)
 
 	// Signal buffered `fooCh` to start

@@ -73,4 +73,4 @@ Contributions are welcome! If you have a new problem to add or have found a bug 
 4. Test your changes if applicable.
 5. Submit a pull request with a descriptive title and detailed explanation of your changes.
 
-Thank you for contributing to this repository and happy problem-solving! 🚀
+Thank you for contributing to this repository and happy problem-solving. 
