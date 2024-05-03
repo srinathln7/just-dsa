@@ -1,7 +1,7 @@
 package main
 
 type Node struct {
-	Val      int
+	Val      string
 	Children []*Node
 }
 
@@ -12,17 +12,21 @@ func findRoot(tree []*Node) *Node {
 	// integer repeating twice expecting only one integer. This `integer` x -> is the root of the tree.
 	// XOR propeorties: x^0 = x, x^x=0 and it is associative and commutative
 
+	charToInt := func(str string) int {
+		return int(str[0] - 'A')
+	}
+
 	x := 0
 	for _, node := range tree {
-		x ^= node.Val
+		x ^= charToInt(node.Val)
 		for _, child := range node.Children {
-			x ^= child.Val
+			x ^= charToInt(child.Val)
 		}
 	}
 
 	// `x` represents the root of the tree
 	for _, node := range tree {
-		if node.Val == x {
+		if charToInt(node.Val) == x {
 			return node
 		}
 	}
