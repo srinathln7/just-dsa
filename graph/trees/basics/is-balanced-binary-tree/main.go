@@ -8,39 +8,39 @@ type TreeNode struct {
 }
 
 func isBalanced(root *TreeNode) bool {
-	// Define a helper function to perform depth calculation and balance check simultaneously
-	var dfs func(*TreeNode) (int, bool)
-	dfs = func(node *TreeNode) (int, bool) {
-		// Base case: If the node is nil, return depth 0 and true for balance
+	var isBalanced func(node *TreeNode) bool
+	isBalanced = func(node *TreeNode) bool {
+		// Base case: Empty trees are always balanced
 		if node == nil {
-			return 0, true
+			return true
 		}
 
-		// Recursively calculate the depths of the left and right subtrees
-		leftDepth, isBalancedLeft := dfs(node.Left)
-		rightDepth, isBalancedRight := dfs(node.Right)
-
-		// Check if either subtree is unbalanced or if the difference in depths exceeds 1
-		if !isBalancedLeft || !isBalancedRight || abs(leftDepth-rightDepth) > 1 {
-			return -1, false
-		}
-
-		// Calculate the depth of the current subtree
-		depth := 1 + max(leftDepth, rightDepth)
-
-		// Return the depth and balance status of the current subtree
-		return depth, true
+		leftDepth, rightDepth := depth(node.Left), depth(node.Right)
+		return isBalanced(node.Left) && abs(leftDepth-rightDepth) <= 1 && isBalanced(node.Right)
 	}
 
-	// Invoke the helper function on the root node and return the balance status
-	_, isBalanced := dfs(root)
-	return isBalanced
+	return isBalanced(root)
 }
 
-// Helper function to calculate the absolute value
+func depth(node *TreeNode) int {
+	if node == nil {
+		return 0
+	}
+
+	if node.Left == nil && node.Right == nil {
+		return 1
+	}
+
+	leftDepth, rightDepth := depth(node.Left), depth(node.Right)
+
+	// Plus one is for the root node
+	return 1 + max(leftDepth, rightDepth)
+}
+
 func abs(x int) int {
 	if x < 0 {
 		return -x
 	}
+
 	return x
 }
