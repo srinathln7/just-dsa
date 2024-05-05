@@ -7,6 +7,12 @@ type Listnode struct {
 	next *Listnode
 }
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 func main() {
 
 	// a: &{val:0 next:<nil>} and b:&{val:0 next:<nil>}
@@ -73,4 +79,47 @@ func main() {
 
 	fmt.Println("resultsAlt", resultsAlt)
 	fmt.Println("resultAlt", resultAlt)
+
+	// Trees
+
+	// Form the binary tree
+	root := &TreeNode{
+		Val: 3,
+		Left: &TreeNode{
+			Val: 1,
+			Left: &TreeNode{
+				Val: 3,
+			},
+		},
+		Right: &TreeNode{
+			Val: 4,
+			Left: &TreeNode{
+				Val: 1,
+			},
+			Right: &TreeNode{
+				Val: 5,
+			},
+		},
+	}
+
+	fmt.Printf("Root of the tree is %+v \n", root)
+
+	// Create a temp variable pointing to the root
+	curr := root
+	curr = curr.Right
+	// Progress along the right subtree path
+	fmt.Printf("Curr of the tree  after progressing to the right is %+v \n", curr)
+
+	// Keep the root intact
+	fmt.Printf("Root of the tree is %+v \n", root)
+
+	root = root.Right
+	fmt.Printf("Root of the tree using original reference is %+v \n", root)
+
+	// Output
+
+	//	Root of the tree is &{Val:3 Left:0xc0000b20d8 Right:0xc0000b2108}
+	// Curr of the tree  after progressing to the right is &{Val:4 Left:0xc0000b2120 Right:0xc0000b2138}
+	// Root of the tree is &{Val:3 Left:0xc0000b20d8 Right:0xc0000b2108}
+	// Root of the tree is &{Val:4 Left:0xc0000b2120 Right:0xc0000b2138}
 }

@@ -107,3 +107,13 @@ func main() {
     fmt.Println("resultAlt", resultAlt)
 ```
 - These lines print the values of `resultsAlt` and `resultAlt`, demonstrating the same result as before but using `make`.
+
+### Trees
+
+```
+      3
+     / \
+    1   4
+   /   / \
+  3   1   5
+```

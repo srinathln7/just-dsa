@@ -10,6 +10,9 @@ type TreeNode struct {
 func diameterOfBinaryTree(root *TreeNode) int {
 
 	// Key Idea: Run a DFS on each node and keep track of the max. path length passing through that node
+	// which the sum of the depth of the left and right sub-trees.
+
+	// Run a DFS on each node and keep track of the max. path length passing through that node
 	// which the sum of the depth of the left and right sub-trees. We do this for all nodes in the tree
 	// and return the max path length i.e. diameter
 
@@ -17,25 +20,32 @@ func diameterOfBinaryTree(root *TreeNode) int {
 	// THIS PATH MAY or MAY NOT PASS THROUGH THE ROOT.
 	// The dfs returns the depth of the node and NOT the depth of the tree (which is the max. number of nodes from ROOT to the LEAF).
 
-	res := 0
-	var dfs func(*TreeNode) int
-	dfs = func(root *TreeNode) int {
-		if root == nil {
+	var diameter int
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
 			return 0
 		}
-		left := dfs(root.Left)
-		right := dfs(root.Right)
-		res = max(res, left+right)
-		return 1 + max(left, right)
+
+		// Run DFS with `node.Left` and `node.Right` as root
+		leftPath, rightPath := dfs(node.Left), dfs(node.Right)
+		diameter = max(diameter, leftPath+rightPath)
+		return depth(node)
 	}
 
 	dfs(root)
-	return res
+	return diameter
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
+func depth(node *TreeNode) int {
+
+	if node == nil {
+		return 0
 	}
-	return b
+
+	if node.Left == nil && node.Right == nil {
+		return 1
+	}
+
+	return 1 + max(depth(node.Left), depth(node.Right))
 }
