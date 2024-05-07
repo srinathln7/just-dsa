@@ -13,6 +13,8 @@ func sumNumbers(root *TreeNode) int {
 	// As we progress along the path, every time the number is multiplied by 10 to ensure
 
 	var totalSum int
+
+	// IMPORTANT: To pass parameter by value and not by reference
 	var dfs func(node *TreeNode, currVal int)
 	dfs = func(node *TreeNode, currVal int) {
 

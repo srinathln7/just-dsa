@@ -8,7 +8,8 @@ func minEatingSpeed(piles []int, h int) int {
 	// Have one portion representing slow eating but cannot finish all and other portion representing can
 	// finish all but eating fast. Move these pointers in opposite direction until they meet.
 
-	l, r := 1, getMax(piles) // left and right pointers
+	// Left and right pointers representing the min and max. eating speed
+	l, r := 1, getMax(piles)
 
 	for l <= r {
 		mid := l + (r-l)/2

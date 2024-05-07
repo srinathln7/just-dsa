@@ -94,7 +94,7 @@ func main() {
 	printTree(root, 0)
 
 	// Output
-	//	Root val is root
+	// Root val is root
 	// Node root at level 0
 	// Node food at level 1
 	// Node chips at level 2
