@@ -22,7 +22,7 @@ func maxSlidingWindow(nums []int, k int) []int {
 		// Keep dequeueing from the BACK if the number we are adding is greater than the rest of the numbers in the current window
 		// By this way, we ensure constant time access to maximum element in a window
 		for n > 0 && nums[r] >= nums[deque[n-1]] {
-			deque = deque[:len(deque)-1]
+			deque = deque[:n-1]
 			n = len(deque) // Update the length
 		}
 	}
