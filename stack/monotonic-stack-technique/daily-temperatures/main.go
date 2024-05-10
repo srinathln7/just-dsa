@@ -9,6 +9,9 @@ func dailyTemperatures(temperatures []int) []int {
 	// higher than the temperature of the current element, we pop indices from the stack and calculate the number of days to wait for
 	// a warmer temperature.
 
+	// REMARK: Wrt. to temp. we want to the stack to be monotonically increasing. Hoewver, note that, we are not keeping
+	// temperature in the stack but only its indices
+
 	n := len(temperatures)
 	if n == 1 {
 		return []int{0}

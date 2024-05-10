@@ -15,7 +15,8 @@ func Constructor() StockSpanner {
 
 func (this *StockSpanner) Next(price int) int {
 
-	// Key Idea: We need to find how many elements consecutive  to my left including myself are lesser than or equal to myself
+	// Key Idea: We need to find how many elements consecutive to my left are lesser than or equal to myself
+	// We want the stack to be monotonically increasing
 	span := 1
 	for len(this.stack) > 0 && price >= this.stack[len(this.stack)-1].val {
 		top := this.stack[len(this.stack)-1]
