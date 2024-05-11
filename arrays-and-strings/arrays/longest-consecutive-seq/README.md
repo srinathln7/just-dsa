@@ -1,4 +1,4 @@
-# Longest consecutive sequence:
+# [Longest consecutive sequence](https://leetcode.com/problems/longest-consecutive-sequence/description/):
 Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence.
 
 ## Intuition:

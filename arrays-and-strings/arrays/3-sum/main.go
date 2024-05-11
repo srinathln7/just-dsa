@@ -20,7 +20,7 @@ func threeSum(nums []int) [][]int {
 	resMap := make(map[[3]int]struct{})
 	for i, num := range nums {
 
-		// Skip duplicates
+		// Skip duplicates - Avoid duplicates condition since the array is is already sorted
 		if i > 0 && nums[i-1] == nums[i] {
 			continue
 		}

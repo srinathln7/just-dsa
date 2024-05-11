@@ -4,37 +4,37 @@ import "strings"
 
 func printVertically(s string) []string {
 
-	// Key Idea: To convert the given string into a string array seperated by spaces. The length of the
-	// resulting array will be the length of the longest word in the formed string array
+	// Key Idea: Form the string array and then start interleaving elements. The results length will
+	// be equal to the longest word length where each word is seperated by a space
 
 	strArr := strings.Split(s, " ")
 
-	// Determine max length of the result array
-	maxLength := 0
-	for _, str := range strArr {
-		if len(str) > maxLength {
-			maxLength = len(str)
-		}
+	// Determine the max. length
+	maxlen := 0
+	for _, word := range strArr {
+		maxlen = max(maxlen, len(word))
 	}
 
-	// Pad whitespaces to the right i.e. trailing white spaces
-	for i, str := range strArr {
-		if len(str) < maxLength {
-			strArr[i] = str + strings.Repeat(" ", maxLength-len(str))
-		}
-	}
+	// Example:
 	// [["HOWARD" , "ARE", "YOU"]]
 	// [["HAY"], ["ORO"], ["WEU"], ["A"], ["R"], ["D"] ]
-	result := make([]string, maxLength)
-	for i := 0; i < maxLength; i++ {
+	result := make([]string, maxlen)
+	for i := 0; i < maxlen; i++ {
 		for _, word := range strArr {
+
+			// Make all words len the same before forming the result to avoid out-of-bound exception
+			// This can be achieved easily by padding extra spaces to the right
+			if len(word) < maxlen {
+				word += strings.Repeat(" ", maxlen-len(word))
+			}
+
 			result[i] += string(word[i])
 		}
 	}
 
-	// Trim the trailing right spaces
-	for i := 0; i < maxLength; i++ {
-		result[i] = strings.TrimRight(result[i], " ")
+	// Remove the trailing spaces
+	for i, word := range result {
+		result[i] = strings.TrimRight(word, " ")
 	}
 
 	return result

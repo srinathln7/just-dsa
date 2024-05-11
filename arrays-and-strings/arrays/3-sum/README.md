@@ -1,5 +1,7 @@
-# 3Sum:
+# [3Sum](https://leetcode.com/problems/3sum/)
 Given an array of integers `nums`, return all the unique triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. Notice that the solution set must not contain duplicate triplets.
+
+
 
 ## Intuition:
 To find unique triplets that sum up to zero, we can leverage the two-pointer approach along with a hash map. By iterating through the array and treating each element as a potential target sum, we can transform the problem into a two-sum problem. Sorting the array beforehand ensures that we can efficiently avoid duplicate triplets.
