@@ -1,77 +1,50 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-)
+import "fmt"
 
-func Diameter(root *Node) int {
+type Node struct {
+	Val      int
+	Children []*Node
+}
 
-	// Basecase
-	if root == nil {
-		return 0
-	}
+func diameter(root *Node) int {
 
-	if len(root.Children) == 0 {
-		return 0
-	}
+	// PREREQ: Diameter of binary tree
+	// Key Idea: Similar to binary trees to find the diameter we need to find the depth of the tree. The catch here is
+	// since the tree may have more tahn two children unlike binary nodes, we will have to find the maximum two depths
+	// among all the nodes in the tree. Then the path length passing through that node will be equal to `maxDepth1+maxDepth2`
 
-	var diamater int
+	// REMEMBER: The length of the longest path may or may not pass through the root. Hence it is important to run DFS among all nodes
 
-	var dfs func(node *Node)
-	dfs = func(node *Node) {
+	var diameter int
+
+	var dfs func(node *Node) int
+	dfs = func(node *Node) int {
+
 		if node == nil {
-			return
+			return 0
 		}
 
-		for _, child := range node.Children {
-			dfs(child)
-			maxDepth1, maxDepth2 := maxTwoDepths(child)
-			diamater = max(diamater, maxDepth1+maxDepth2)
+		if len(node.Children) == 0 {
+			return 1
 		}
+
+		maxDepth1, maxDepth2 := 0, 0
+		for _, child := range node.Children {
+			parentDepth := dfs(child)
+			if parentDepth > maxDepth1 {
+				maxDepth1, maxDepth2 = parentDepth, maxDepth1
+			} else if parentDepth > maxDepth2 {
+				maxDepth2 = parentDepth
+			}
+		}
+
+		diameter = max(diameter, maxDepth1+maxDepth2)
+		return 1 + maxDepth1
 	}
 
 	dfs(root)
-	return diamater
-}
-
-func maxTwoDepths(node *Node) (int, int) {
-
-	if node == nil {
-		return 0, 0
-	}
-
-	var depths []int
-	for _, child := range node.Children {
-		depths = append(depths, maxDepth(child))
-	}
-
-	fmt.Println("Depths", depths)
-	// For uni-ary tree
-	if len(depths) == 1 {
-		return depths[0], 0
-	}
-
-	sort.Slice(depths, func(i, j int) bool {
-		return depths[i] >= depths[j]
-	})
-
-	return depths[0], depths[1]
-}
-
-func maxDepth(root *Node) int {
-	// Key Idea: Use recursion
-	if root == nil {
-		return 0
-	}
-
-	// At the root level `depth`
-	depth := 1
-	for _, child := range root.Children {
-		// Plus 1 is for the child node that will be treated as the `root` in the next recursive stack frame
-		depth = max(depth, 1+maxDepth(child))
-	}
-	return depth
+	return diameter
 }
 
 func main() {
