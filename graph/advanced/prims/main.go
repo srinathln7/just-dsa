@@ -66,7 +66,12 @@ func minCostConnectPoints(points [][]int) int {
 	heap.Push(minHeap, Point{idx: 0, cost: 0})
 
 	// Declare a visited map to keep track of the nodes visited
-	// Key is the point `idx`
+	// VERY IMPORTANT: Key is the point `idx` of type `int` and not the entire `node`. It is not only because
+	// it is efficient in doing that but also struct equality implies checking equality for not just the
+	// `idx` field but also the `cost` field. For ex: Point{1,4} is different from Point{1,3}.  If we had
+	//  used `node` as key rather than `node.idx` then the heap would still calculate the cost for visiting
+	// point `1` although point `1` is already visited. Heap would visit {1,4} and then {1,3} again which is
+	// not what we wanted and will output the wrong result.
 	visited := make(map[int]bool)
 	var minCost int
 	for len(visited) != n {
