@@ -1,35 +1,27 @@
-# K points closet to Origin
+# [K Closest Points To Origin](https://leetcode.com/problems/k-closest-points-to-origin/description/)
+Given a list of points in the Cartesian plane, find the k closest points to the origin (0, 0).
 
-You are given a set of points in the form of coordinates on a 2D plane. You need to find the `k` closest points to the origin.
+## Intuition:
+To find the k closest points, we can calculate the Euclidean distance of each point from the origin and maintain a max heap of size k. This way, the top of the heap will always contain the k closest points seen so far.
 
-## Intuition
+## Approach:
+1. Define a struct `Point` to store the index of the point and its distance from the origin.
+2. Implement a max heap data structure (`MaxHeap`) and necessary methods (`Len`, `Less`, `Swap`, `Top`, `Push`, `Pop`) to maintain the heap property.
+3. Define a function `getEuclideanDist` to calculate the Euclidean distance between a point and the origin.
+4. Iterate through the given points:
+   - Calculate the Euclidean distance of each point from the origin.
+   - Push the point onto the max heap.
+   - If the size of the heap exceeds k, pop the top element.
+5. After processing all points, the heap will contain the k closest points.
+6. Pop elements from the heap and store them in the result array.
+7. Return the result array containing the k closest points.
 
-The problem involves calculating the Euclidean distance from each point to the origin and selecting the `k` points with the smallest distances.
+## Time Complexity:
+- Calculating the Euclidean distance for each point: O(N), where N is the number of points.
+- Pushing and popping elements from the max heap: O(log K), where K is the size of the heap.
+- Overall time complexity: O(N log K).
 
-## Approach
-
-1. Define a `Point` struct to represent a point with coordinates (X, Y) and its distance from the origin.
-2. Implement a min-heap to store the points based on their distances.
-3. Iterate through each point in the input array.
-4. Calculate the Euclidean distance for each point and add it to the min-heap.
-5. Pop the `k` smallest elements from the min-heap.
-6. Return these `k` closest points.
-
-## Time Complexity
-
-Let `n` be the number of points.
-
-1. Calculating the Euclidean distance for each point: O(n).
-2. Constructing the min-heap: O(n log n).
-3. Popping `k` elements from the min-heap: O(k log n).
-
-Overall time complexity: O(n log n).
-
-## Space Complexity
-
-- Space required for storing points and distances: O(n).
-- Space required for the min-heap: O(n).
-
-Total space complexity: O(n).
-
-Alternatively, if we had used a max heap, our space complexity would be just O(k) instead of O(n).
+## Space Complexity:
+- Storing points in the max heap: O(K).
+- Storing the result array: O(K).
+- Overall space complexity: O(K), where K is the number of closest points to be returned.

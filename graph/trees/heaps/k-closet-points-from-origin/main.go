@@ -6,50 +6,49 @@ import (
 )
 
 type Point struct {
-	X    int
-	Y    int
+	idx  int // Store the point's idx rather than the actual point. This is much efficient
 	dist float64
 }
 
-type MinHeap []Point
+type MaxHeap []Point
 
-func (h MinHeap) Len() int            { return len(h) }
-func (h MinHeap) Less(i, j int) bool  { return h[i].dist < h[j].dist }
-func (h MinHeap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
-func (h MinHeap) Top() Point          { return h[0] }
-func (h *MinHeap) Push(x interface{}) { *h = append(*h, x.(Point)) }
-func (h *MinHeap) Pop() any {
+func (h MaxHeap) Len() int            { return len(h) }
+func (h MaxHeap) Less(i, j int) bool  { return h[i].dist > h[j].dist }
+func (h MaxHeap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
+func (h MaxHeap) Top() Point          { return h[0] }
+func (h *MaxHeap) Push(x interface{}) { *h = append(*h, x.(Point)) }
+func (h *MaxHeap) Pop() any {
 	n := len(*h)
 	top := (*h)[n-1]
 	(*h) = (*h)[:n-1]
 	return top
 }
 
-func getPointWithEuclideanDist(point *Point) *Point {
-	point.dist = math.Sqrt(float64(point.X*point.X + point.Y*point.Y))
-	return point
+func getEuclideanDist(x, y int) float64 {
+	return math.Sqrt(float64(x*x + y*y))
 }
 
 func kClosest(points [][]int, k int) [][]int {
-	// Calculate the Eucledian distance for every point and store the resulting point in the min-heap
-	// To return `k` closest points pop the heap `k` times
-	kclosest := make([][]int, k)
 
-	// Start populating the min-heap
-	minHeap := &MinHeap{}
-	for _, point := range points {
-		euclideanPoint := getPointWithEuclideanDist(&Point{X: point[0], Y: point[1]})
-		heap.Push(minHeap, *euclideanPoint)
+	// Key Idea: Maintain a max heap of size `k`
+
+	result := make([][]int, k)
+	maxHeap := &MaxHeap{}
+	for idx, point := range points {
+		dist := getEuclideanDist(point[0], point[1])
+		heap.Push(maxHeap, Point{idx: idx, dist: dist})
+
+		// When heap size exceeds size `k` - start popping out so that the heap maintains the `k` closest points at any given index
+		if idx >= k {
+			heap.Pop(maxHeap)
+		}
 	}
 
-	// Pop the first k out
+	// Fill in the result
 	for i := 0; i < k; i++ {
-		euclideanPoint := heap.Pop(minHeap).(Point) // Do not forget to cast back
-		kclosest[i] = []int{euclideanPoint.X, euclideanPoint.Y}
+		point := heap.Pop(maxHeap).(Point)
+		result[i] = points[point.idx]
 	}
 
-	// Alternatively, Since order does not matter => We can use max heap as well
-	// Advantage is we dont have to store `n` points but only `k` points at a time
-	// Only the length of the heap is greater than `k` start popping and the farther points will be removed
-	return kclosest
+	return result
 }

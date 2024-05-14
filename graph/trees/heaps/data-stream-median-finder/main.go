@@ -52,6 +52,10 @@ func Constructor() MedianFinder {
 
 func (this *MedianFinder) AddNum(num int) {
 
+	// Key Idea: Maintain two heaps of size difference of atmost 1. Store the smaller numbers in max heap and the larger numbers
+	// in min heap. If the heap sizes are equal, median is the avg. of the two tops of both min and max heap. Otherwise, the median
+	// is present on the heap with the larger size.
+
 	switch {
 	// Always keep the smaller values in the max heap
 	case this.maxHeap.Len() == 0 || num < (this.maxHeap).Top():
