@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -45,4 +46,17 @@ func (s *Solution) Decode(sEncoded string) []string {
 	}
 
 	return result
+}
+
+func main() {
+	solution := Solution{}
+
+	// Test Encode function
+	strs := []string{"abc", "def", "ghi"}
+	encoded := solution.Encode(strs)
+	fmt.Println("Encoded:", encoded)
+
+	// Test Decode function
+	decoded := solution.Decode(encoded)
+	fmt.Println("Decoded:", decoded)
 }

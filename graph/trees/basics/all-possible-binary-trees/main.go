@@ -17,37 +17,23 @@ func allPossibleFBT(n int) []*TreeNode {
 		return nil
 	}
 
-	dp := make([][]*TreeNode, n+1)
+	// dp[i] => No. of full binary tree with `i` number of nodes
 
+	dp := make([][]*TreeNode, n+1)
 	node := &TreeNode{}
 	dp[1] = []*TreeNode{node}
 
 	for i := 3; i <= n; i += 2 {
-
-		var trees []*TreeNode
-
-		// IMPORTANT : j < i as 1 node is reserved for root
-
-		for j := 1; j < i; j += 2 {
-
-			// Get all possible left subtrees with j nodes
-			leftSubTrees := dp[j]
-
-			// Get all possible right subtrees with i-j-1 nodes
-			rightSubTrees := dp[i-j-1]
-
-			// Generate all combinations of left and right subtrees to form full binary trees
-			for _, left := range leftSubTrees {
-				for _, right := range rightSubTrees {
-					tree := &TreeNode{Left: left, Right: right}
-					trees = append(trees, tree)
+		// Total of `i-1` nodes
+		for j := 1; j < i; j++ {
+			leftTrees := dp[j-1]
+			rightTrees := dp[i-j]
+			for _, left := range leftTrees {
+				for _, right := range rightTrees {
+					dp[i] = append(dp[i], &TreeNode{Left: left, Right: right})
 				}
 			}
 		}
-		// Store the list of full binary trees with `i` number of nodes
-		dp[i] = trees
 	}
-
-	// Return the list of full binary trees with `n` number of nodes
 	return dp[n]
 }

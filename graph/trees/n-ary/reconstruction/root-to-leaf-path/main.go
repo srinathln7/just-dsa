@@ -27,6 +27,24 @@ func getEdges(sequences [][]string) [][2]string {
 	}
 
 	return edges
+
+	// var pairs [][2]string
+	// seen := make(map[[2]string]bool)
+
+	// for _, seq := range sequences {
+	// 	for i := 0; i < len(seq)-1; i++ {
+	// 		for j := i + 1; j < len(seq); j++ {
+	// 			pair := [2]string{seq[i], seq[j]}
+
+	// 			if !seen[pair] {
+	// 				pairs = append(pairs, pair)
+	// 				seen[pair] = true
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	// return pairs
 }
 
 func findRoot(edges [][2]string) *TreeNode {

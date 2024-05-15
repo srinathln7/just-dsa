@@ -22,6 +22,8 @@ func eventualSafeNodes(graph [][]int) []int {
 		visited[node] = true
 
 		for _, child := range graph[node] {
+			// Since every possible path from the node should lead to anothe safe/terminal node
+			// so if even one of them is false, then that node is not a safe node.
 			if !isSafe(child) {
 				return false
 			}
