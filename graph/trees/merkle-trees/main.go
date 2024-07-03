@@ -6,11 +6,11 @@ import (
 )
 
 type Node struct {
-	val        string
-	left_idx   int
-	right_idx  int
-	left_node  *Node
-	right_node *Node
+	Hash     string
+	Left     *Node
+	Right    *Node
+	LeftIdx  int
+	RightIdx int
 }
 
 type Merkle struct {
@@ -23,6 +23,7 @@ func calcHash(tx []byte) string {
 }
 
 func newMerkleTree(txs [][]byte) *Merkle {
+
 	n := len(txs)
 	if n == 0 {
 		return nil
@@ -36,11 +37,13 @@ func newMerkleTree(txs [][]byte) *Merkle {
 }
 
 func buildMerkleTree(txs [][]byte, l, r int) *Node {
+
+	// Leaf nodes
 	if l == r {
 		return &Node{
-			val:       calcHash(txs[l]),
-			left_idx:  l,
-			right_idx: r,
+			Hash:     calcHash(txs[l]),
+			LeftIdx:  l,
+			RightIdx: r,
 		}
 	}
 
@@ -48,108 +51,106 @@ func buildMerkleTree(txs [][]byte, l, r int) *Node {
 	left := buildMerkleTree(txs, l, mid)
 	right := buildMerkleTree(txs, mid+1, r)
 	return &Node{
-		val:        calcHash(append([]byte(left.val), []byte(right.val)...)),
-		left_idx:   l,
-		right_idx:  r,
-		left_node:  left,
-		right_node: right,
+		Hash: calcHash(append([]byte(left.Hash), []byte(right.Hash)...)),
+		//Hash:     calcHash(fmt.Append([]byte(left.Hash), []byte(right.Hash))),
+		Left:     left,
+		Right:    right,
+		LeftIdx:  l,
+		RightIdx: r,
 	}
 }
 
 func findParent(root, node *Node) *Node {
+
 	if root == nil || node == nil {
 		return nil
 	}
 
-	if root == node || (root.left_node == node || root.right_node == node) {
+	if root == node || root.Left == node || root.Right == node {
 		return root
 	}
 
-	if left := findParent(root.left_node, node); left != nil {
+	if left := findParent(root.Left, node); left != nil {
 		return left
 	}
 
-	return findParent(root.right_node, node)
+	return findParent(root.Right, node)
 }
 
 func findSibling(root, node *Node) *Node {
+
 	if root == nil || node == nil || root == node {
 		return nil
 	}
 
 	parent := findParent(root, node)
-	if parent.left_node == node {
-		return parent.right_node
+	if parent == nil {
+		return nil
 	}
 
-	return parent.left_node
+	if parent.Left == node {
+		return parent.Right
+	}
+
+	return parent.Left
 }
 
 func findLeaf(root *Node, leafIdx int) *Node {
-	if root == nil || leafIdx < root.left_idx || leafIdx > root.right_idx {
+	if root == nil || (leafIdx < root.LeftIdx || leafIdx > root.RightIdx) {
 		return nil
 	}
 
-	if root.left_idx == leafIdx && root.right_idx == leafIdx {
+	if root.LeftIdx == leafIdx && root.RightIdx == leafIdx {
 		return root
 	}
 
-	midIdx := root.left_idx + (root.right_idx-root.left_idx)/2
+	midIdx := root.LeftIdx + (root.RightIdx-root.LeftIdx)/2
 	if leafIdx <= midIdx {
-		return findLeaf(root.left_node, leafIdx)
+		return findLeaf(root.Left, leafIdx)
 	}
-
-	return findLeaf(root.right_node, leafIdx)
+	return findLeaf(root.Right, leafIdx)
 }
 
-func genProofs(root *Node, leafIdx int) []*Node {
+func (mt *Merkle) genMerkleProofs(txIdx int) []*Node {
+	var proofs []*Node
+	leaf := findLeaf(mt.root, txIdx)
+	proofs = append(proofs, findSibling(mt.root, leaf))
 
-	if root == nil || leafIdx < root.left_idx || leafIdx > root.right_idx {
-		return nil
+	parent := findParent(mt.root, leaf)
+	for parent != mt.root {
+		proofs = append(proofs, findSibling(mt.root, parent))
+		parent = findParent(mt.root, parent)
 	}
-
-	if root.left_node == nil && root.right_node == nil {
-		return []*Node{root}
-	}
-
-	var result []*Node
-	leaf := findLeaf(root, leafIdx)
-	sibling := findSibling(root, leaf)
-	result = []*Node{sibling}
-
-	parent := findParent(root, leaf)
-	for parent != root {
-		sibling = findSibling(root, parent)
-		result = append(result, sibling)
-		parent = findParent(root, parent)
-	}
-
-	return result
+	return proofs
 }
 
-func (mt *Merkle) verifyProof(rootHash, txHash string, txIdx int, proofs []*Node) bool {
-	if txIdx < mt.root.left_idx || txIdx > mt.root.right_idx {
+func (mt *Merkle) verifyMerkleProofs(txHash string, txIdx int, proofs []*Node) bool {
+
+	leaf := findLeaf(mt.root, txIdx)
+	if leaf == nil {
 		return false
 	}
 
-	leaf := findLeaf(mt.root, txIdx)
-	if leaf.val != txHash {
+	if leaf.Hash != txHash {
 		return false
 	}
 
 	merkleHash := txHash
+
 	curr := leaf
 	for _, proof := range proofs {
-		if curr.left_idx < proof.left_idx || curr.right_idx < proof.right_idx {
-			merkleHash = calcHash(append([]byte(merkleHash), []byte(proof.val)...))
+		if curr.LeftIdx < proof.LeftIdx && curr.RightIdx < proof.RightIdx {
+			merkleHash = calcHash(append([]byte(merkleHash), []byte(proof.Hash)...))
 		} else {
-			merkleHash = calcHash(append([]byte(proof.val), []byte(merkleHash)...))
+			merkleHash = calcHash(append([]byte(proof.Hash), []byte(merkleHash)...))
 		}
-		curr.left_idx = min(curr.left_idx, proof.left_idx)
-		curr.right_idx = max(curr.right_idx, proof.right_idx)
+
+		// IMPORTANT: To update the index
+		curr.LeftIdx = min(curr.LeftIdx, proof.LeftIdx)
+		curr.RightIdx = max(curr.RightIdx, proof.RightIdx)
 	}
 
-	return merkleHash == rootHash && mt.root.val == rootHash
+	return merkleHash == mt.root.Hash
 }
 
 func main() {
@@ -165,23 +166,23 @@ func main() {
 	mt := newMerkleTree(txs)
 
 	// Display the root hash
-	fmt.Println("Merkle Root Hash:", mt.root.val)
+	fmt.Println("Merkle Root Hash:", mt.root.Hash)
 
 	// Generate proofs for a specific transaction (e.g., tx2)
-	txIdx := 0 // Index of "tx2"
-	proofs := genProofs(mt.root, txIdx)
+	txIdx := 3 // Index of "tx2"
+	proofs := mt.genMerkleProofs(txIdx)
 
 	// Display the proofs
-	fmt.Println("Proofs for tx2:")
+	fmt.Printf("Proofs for tx:%d\n", txIdx)
 	for _, proof := range proofs {
-		fmt.Println(proof.val)
+		fmt.Println(proof.Hash)
 	}
 
 	// Verify the proof for "tx2"
 	txHash := calcHash(txs[txIdx])
-	if mt.verifyProof(mt.root.val, txHash, txIdx, proofs) {
-		fmt.Printf("Proof verified successfully for tx idx:%d \n", txIdx)
+	if mt.verifyMerkleProofs(txHash, txIdx, proofs) {
+		fmt.Printf("Proof verified successfully for tx%d \n", txIdx)
 	} else {
-		fmt.Printf("Proof verification failed for tx idx:%d \n", txIdx)
+		fmt.Printf("Proof verification failed for tx:%d \n", txIdx)
 	}
 }
